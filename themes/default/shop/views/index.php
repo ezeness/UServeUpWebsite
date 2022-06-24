@@ -87,7 +87,7 @@
                     </div>
                     <?php } ?>
                         <?php 
-                        if(isset($hashtags)){
+                        if(isset($hashtags) && isset($datas)){
                         ?>  
                             <div class="main-category-block hash_tags">
                                 <div class="lsit-cate">
@@ -112,10 +112,11 @@
        
     </div>
 </div>
-<?php 
-                                            $i = 0;
-                                            if (isset($datas)) { ?>
+
 <div class="tab-content tab-borda " id="discover">
+    <?php 
+    $i = 0;
+    if (isset($datas)) { ?>
     <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post">
         <section>
             <div class="main-category">
@@ -176,14 +177,16 @@
             </div>
         </section>
     </div>
+    <?php } else{ ?>
+                                    
+    <p class="no_posts" style="text-align:center"><img src="<?=$assets?>images/empty-box.png" alt="No Post" style="height: 200px;padding: 10px;"><br>No Posts</p>
+                                
+    <?php } ?>
 </div>
-<?php } else{ ?>
-                                    
-        <p class="no_posts" style="text-align:center"><img src="<?=$assets?>images/empty-box.png" alt="No Post" style="height: 200px;padding: 10px;"><br>No Posts</p>
-                                    
-                                <?php } ?>
-<?php if ($shop_up) { ?>
+
+
 <div class="" id="shop_up" style="display:none">
+<?php if (isset($shop_up)) { ?>
 <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post">
         <section>
             <div class="main-category">
@@ -265,12 +268,11 @@
                </div>
            </section>
        </div>
+       <?php } else{ ?>                        
+            <p class="no_posts" style="text-align:center"><img src="<?=$assets?>images/empty-box.png" alt="No Post" style="height: 200px;padding: 10px;"><br>No Posts</p>
+        <?php } ?>
    </div>
-   <?php } else{ ?>
-                                       
-           <p class="no_posts" style="text-align:center"><img src="<?=$assets?>images/empty-box.png" alt="No Post" style="height: 200px;padding: 10px;"><br>No Posts</p>
-                                       
-                                   <?php } ?>
+
 <div>
 <script>
 $("#discover_filter").click(function(){

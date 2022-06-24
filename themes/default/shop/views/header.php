@@ -41,7 +41,9 @@
             var assets = '<?= $assets ?>';
         </script>
     </head>
-
+<?php 
+$uri =  $this->uri->segment(1);
+?>
     <style>
 .swal-wide{
     width:400px !important;
@@ -86,7 +88,7 @@
                             </div>
                             <div class="header-top-icon">
                                 <ul style="display: inline-table;">
-                                <li>
+                                <li  class="<?=$uri == 'home' ? 'active' : ''?>">
 
                                     <?php 
                                        if($loggedIn){
@@ -103,7 +105,7 @@
                                        <img src="<?= $assets; ?>images/home (2).png" style="height: 26px;width:26px;"></a>
                                     
                                 </li>
-                                <li class="active">
+                                <li class="<?=$uri == '' ? 'active' : ''?>">
                                     <a href="<?php echo site_url('/'); ?>" class="search-icon">
                                         <img src="<?= $assets; ?>images/explore_fill.png" alt="Home-icon" style="height: 26px !important;width:26px !important;margin:4px;">
                                     </a>
@@ -133,7 +135,7 @@
                                             </a>
                                                         </li>
 
-                                    <li>
+                                    <li class="<?=$uri == 'writeup' ? 'active' : ''?>">
                                         <a href="<?=base_url('writeup')?>" > 
                                         <img src="<?= $assets; ?>images/writeupblack.png" alt="Home-icon" style="height:29px;width:29px;margin:0px;padding:0px;margin-top: 2px;"> </a>
                                     </li>

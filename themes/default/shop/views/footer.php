@@ -306,7 +306,7 @@
                 </div>
                 <div class="user_details float_left">
                         <p><a href="#"> Hello</a></p>
-                        <p><a href="#"> <?=$loggedInUser ? $loggedInUser->Name : 'To '.$utagUpCCategory->UTagcategoryName.' Up'?></a></p>
+                        <p><a href="#"> <?=$loggedInUser ? $loggedInUser->Name : 'To '.$utagUpCCategory->UTagcategoryFirstName.' '.$utagUpCCategory->UTagcategoryMiddleName.' '.$utagUpCCategory->UTagcategoryLastName?></a></p>
                 </div>
             </div>
             <div class="profile-view-right">

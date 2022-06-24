@@ -100,10 +100,12 @@ class User extends MY_Shop_Controller
         $userURL = 'user/user_details/'.$id.'?latitude=25.18508529663086&longitude=55.26373291015625&posttype=shopup%2Cbookup%2Ccallup&categories=&userId='.$id.'&includechainproduct=1&showpage=discover&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
         $getuserResponce2 = $this->curlGetRequest($userURL);
         $user_json_decoded_value = json_decode($getuserResponce2);
+        if(isset($user_json_decoded_value)){
         $products = $user_json_decoded_value->Products;
         $navBar = $user_json_decoded_value->PostTypes;
         foreach ($products as $key => $value) {
             $this->data['datas'][$key] = json_decode(json_encode($value->Details), true);
+            }
         }
         $this->data['user_details'] = $user_json_decoded_value;
         $this->data['filter'] = '';

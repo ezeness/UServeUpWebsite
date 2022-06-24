@@ -344,6 +344,9 @@ class Main extends MY_Shop_Controller
         if(empty($postTypes)){
             $postTypes = 'callup,bookup,shopup';
         }
+        if($hashtag_id > 0 ||$hashtag_id ==0){
+            $postTypes = '';
+        }
         $page_name =  $this->input->get("page_name");
         if($postTypes == 'postup'){
             $page_name = 'discover';
@@ -352,6 +355,7 @@ class Main extends MY_Shop_Controller
         $productURL ='product?latitude=25.18532943725586&longitude=55.262935638427734&limit=18&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId='.$hashtag_id.'&similarpostId=&packageId='.$parent_id.'&bannertype=store&mostpopular=&LanguageCode=en&timezone=&sorting='.$sortings.'&specialcategoryId='.$isSpecial;
         $getProductResponce = $this->curlGetRequest($productURL);
         $product_json_decoded_value = json_decode($getProductResponce);
+
         $products = $product_json_decoded_value->Products;
             foreach ($products as $key => $value) {
                 $array['datas'][$key] = json_decode(json_encode($value->Details), true);

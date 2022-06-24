@@ -358,7 +358,7 @@ $config['encryption_key'] = 'MfJUtcl5BeX4jnsA1FRKSQ2LVxEi9vbHymCZP';
 */
 $config['sess_driver'] = 'database';
 $config['sess_cookie_name'] = 'sess';
-$config['sess_expiration'] = 60000000;
+$config['sess_expiration'] = 60;
 $config['sess_save_path'] = 'sma_sessions';
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
