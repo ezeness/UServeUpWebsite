@@ -1,10 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 ?>
-
-
 </div>
-
 <div class="menu-con-menu">
     <div class="container">
         <div class="c-icon">

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
-<div class="tab-content tab-borda index_top" >
+<div class="tab-content tab-borda" >
     <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post">
         <div class="header-benner">
             <!-- <div class="container">

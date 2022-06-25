@@ -95,9 +95,12 @@ class User extends MY_Shop_Controller
 
     public function edit_profile()
     {
-        if (!$this->loggedIn) { redirect('/'); }
+        if (!$this->loggedIn) { 
+            $this->session->set_flashdata('error', 'You are not Login!');
+            redirect('/'); 
+        }
         $id = $this->session->userdata('user_id');
-        $userURL = 'user/user_details/'.$id.'?latitude=25.18508529663086&longitude=55.26373291015625&posttype=shopup%2Cbookup%2Ccallup&categories=&userId='.$id.'&includechainproduct=1&showpage=discover&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
+        $userURL = 'user/user_details/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&posttype=shopup%2Cbookup%2Ccallup&categories=&userId='.$id.'&includechainproduct=1&showpage=discover&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
         $getuserResponce2 = $this->curlGetRequest($userURL);
         $user_json_decoded_value = json_decode($getuserResponce2);
         if(isset($user_json_decoded_value)){
@@ -113,10 +116,54 @@ class User extends MY_Shop_Controller
         $this->page_construct('pages/edit_profile', $this->data);
     }
 
+    public function add_address()
+    {
+        if (!$this->loggedIn) { 
+            $this->session->set_flashdata('error', 'You are not Login!');
+            redirect('/'); 
+        }
+        $addresstypesURL = 'address/addresstypes';
+        $addresstypesURL_response = $this->curlGetRequest($addresstypesURL);
+        $addresstypes_json_decoded_value = json_decode($addresstypesURL_response);
+        $this->data['AddressTypes'] = $addresstypes_json_decoded_value->AddressTypes;
+        $countryURL = 'address/countries/';
+        $getCountryResponce2 = $this->curlGetRequest($countryURL);
+        $country_json_decoded_value = json_decode($getCountryResponce2);
+        $this->data['Countries'] = $country_json_decoded_value->Countries;
+        $id = $this->session->userdata('user_id');
+        $this->data['filter'] = '';
+        $this->data['page_title'] ='Add Address';
+        $this->page_construct('pages/add_address', $this->data);
+    }
+
+    public function addresses()
+    {
+        if (!$this->loggedIn) { 
+            $this->session->set_flashdata('error', 'You are not Login!');
+            redirect('/'); 
+        }
+        $id = $this->session->userdata('user_id');
+        $addressURL = 'address/'.$id;
+        $addressURL_response = $this->curlGetRequest($addressURL);
+        $address_json_decoded_value = json_decode($addressURL_response);
+        $this->data['Addresses'] = $address_json_decoded_value->Addresses;
+        $countryURL = 'address/countries/';
+        $getCountryResponce2 = $this->curlGetRequest($countryURL);
+        $country_json_decoded_value = json_decode($getCountryResponce2);
+        $this->data['Countries'] = $country_json_decoded_value->Countries;
+       
+        $this->data['filter'] = '';
+        $this->data['page_title'] ='List Addresses';
+        $this->page_construct('pages/addresses', $this->data);
+    }
+
     
     public function invitation()
     {
-        if (!$this->loggedIn) { redirect('/'); }
+        if (!$this->loggedIn) { 
+            $this->session->set_flashdata('error', 'You are not Login!');
+            redirect('/'); 
+        }
         $user = $this->session->userdata('userdata');
         ///////////////////////////////Standard///////////////////////////////
         $standardtypesURL = 'user/invitationcodes/'.$user->Id.'?inv_type=standard';
@@ -401,6 +448,8 @@ class User extends MY_Shop_Controller
         $code = $code_json_decoded_value;
         echo json_encode( $code);
     }
+
+    
     public function addAdress()
     {
 
@@ -445,19 +494,68 @@ class User extends MY_Shop_Controller
                 $result = curl_exec($ch);
                 $result = json_decode($result);
                 if($result->Status == 1){
-                    $this->session->set_flashdata('message', 'User Created Successfully!');
-                    redirect("/");
+                    $this->session->set_flashdata('message', $result->ErrorMessege);
+                    redirect("addresses");
                 }else{
                     $this->session->set_flashdata('error', $result->ErrorMessege);
                     redirect("/");
 
                 }
     }
+    public function defaultAddress($id = '',$isDefault = '')
+    {   
+                $data = json_encode([
+                    'IsDefault' =>$isDefault,
+                    "AddressId"=> $id,
+                ]);
+                $url = $this->APIUrl.'address/defaultaddress';
+                $ch = curl_init($url);
+
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type:application/json',
+                    'X-API-KEY: whostagging-UZGqUgKGiVmZEtvcQSvBeEaZF'
+                ));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                $result = curl_exec($ch);
+                $result = json_decode($result);
+                if($result->Status == 1){
+                    $this->session->set_flashdata('message', 'Address Updated Successfully!');
+                    redirect("addresses");
+                }else{
+                    $this->session->set_flashdata('error', $result->ErrorMessege);
+                    redirect("/");
+
+                }
+    }
+    public function deleteAddress($id)
+    {
+            
+            $url = $this->APIUrl.'address/address_details/'.$id;
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type:application/json',
+                'X-API-KEY: whostagging-UZGqUgKGiVmZEtvcQSvBeEaZF'
+            ));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $result = curl_exec($ch);
+            $result = json_decode($result);
+            if($result->Status == 1){
+                $this->session->set_flashdata('message', $result->ErrorMessege);
+                redirect("addresses");
+            }else{
+                $this->session->set_flashdata('error', $result->ErrorMessege);
+                redirect("/");
+
+            } 
+    }
 
     public function getShopUpProductsbyUser($id = null)
     {
         $id = $this->session->userdata('UserId');
-        $userURL = 'user/user_details/'.$id.'?latitude=25.18508529663086&longitude=55.26373291015625&posttype=shopup%2Cbookup%2Ccallup&categories=&userId=238&includechainproduct=1&showpage=store&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
+        $userURL = 'user/user_details/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&posttype=shopup%2Cbookup%2Ccallup&categories=&userId=238&includechainproduct=1&showpage=store&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
         $getuserResponce2 = $this->curlGetRequest($userURL);
         $user_json_decoded_value = json_decode($getuserResponce2);
         $products = $user_json_decoded_value->Products;
@@ -477,7 +575,7 @@ class User extends MY_Shop_Controller
         $postTypes =  $this->input->get("nav");
         $page_name =  $this->input->get("page_name");
         $array['PostId'] = '';
-        $productURL = 'product?latitude=25.18532943725586&longitude=55.262935638427734&limit=&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId=238&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=discover';
+        $productURL = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId=238&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=discover';
         $getProductResponce = $this->curlGetRequest($productURL);
         $product_json_decoded_value = json_decode($getProductResponce);
         $products = $product_json_decoded_value->Products;
@@ -485,9 +583,9 @@ class User extends MY_Shop_Controller
                 $array['datas'][$key] = json_decode(json_encode($value->Details), true);
             }
          if($parent_id && $main_parent){
-            $navbarURL ='product?latitude=25.18532943725586&longitude=55.262935638427734&limit=&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId=238&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=discover';
+            $navbarURL ='product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId=238&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=discover';
         } else {
-            $navbarURL = 'product?latitude=25.18532943725586&longitude=55.262935638427734&limit=&page=1&search=&categories=&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId=238&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover';
+            $navbarURL = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories=&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId=238&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover';
         }
         $getNavbarResponce = $this->curlGetRequest($navbarURL);
         $nav_json_decoded_value = json_decode($getNavbarResponce);
@@ -506,7 +604,7 @@ class User extends MY_Shop_Controller
             }
         $this->data['PostId'] = '';
         $this->data['page_name'] = '';
-        $userURL = 'user/user_details/'.$id.'?latitude=25.18508529663086&longitude=55.26373291015625&posttype=shopup%2Cbookup%2Ccallup&categories=&userId='.$id.'&includechainproduct=1&showpage=discover&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
+        $userURL = 'user/user_details/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&posttype=shopup%2Cbookup%2Ccallup&categories=&userId='.$id.'&includechainproduct=1&showpage=discover&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
         $getuserResponce2 = $this->curlGetRequest($userURL);
         $user_json_decoded_value = json_decode($getuserResponce2);
         $products = $user_json_decoded_value->Products;
@@ -521,14 +619,14 @@ class User extends MY_Shop_Controller
         }
 
         ///////////////////////Shop Up Products//////////////////////////
-        $storeURL = 'user/user_details/'.$id.'?latitude=25.18508529663086&longitude=55.26373291015625&posttype=shopup%2Cbookup%2Ccallup&categories=&userId=238&includechainproduct=1&showpage=store&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
+        $storeURL = 'user/user_details/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&posttype=shopup%2Cbookup%2Ccallup&categories=&userId=238&includechainproduct=1&showpage=store&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
         $getstoreResponce2 = $this->curlGetRequest($storeURL);
         $store_json_decoded_value = json_decode($getstoreResponce2);
         $store = $store_json_decoded_value->Products;
         foreach ($store as $key => $value) {
             // $array['shop_up'][$key] = json_decode(json_encode($value->Details), true);
         }
-        $storeproductURL = 'product?latitude=25.18532943725586&longitude=55.262935638427734&limit=18&page=1&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=home&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=home&mostpopular=&LanguageCode=en&timezone=&sorting=';
+        $storeproductURL = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=18&page=1&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=home&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=home&mostpopular=&LanguageCode=en&timezone=&sorting=';
         $getstoreProductResponce = $this->curlGetRequest($storeproductURL);
         $storeproduct_json_decoded_value = json_decode($getstoreProductResponce);
         $storeproducts = $storeproduct_json_decoded_value->Products;
@@ -597,7 +695,7 @@ class User extends MY_Shop_Controller
 
         $page_name =  $this->input->get("page_name");
         $array['PostId'] = '';
-        $productURL = 'product?latitude=25.18532943725586&longitude=55.262935638427734&limit=&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$user_id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=discover';
+        $productURL = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$user_id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=discover';
         $getProductResponce = $this->curlGetRequest($productURL);
         $product_json_decoded_value = json_decode($getProductResponce);
         $products = $product_json_decoded_value->Products;
@@ -605,9 +703,9 @@ class User extends MY_Shop_Controller
                 $array['datas'][$key] = json_decode(json_encode($value->Details), true);
             }
          if($parent_id && $main_parent){
-            $navbarURL= 'product?latitude=25.18532943725586&longitude=55.262935638427734&limit=&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$user_id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=discover';
+            $navbarURL= 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$user_id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=discover';
         } else {
-            $navbarURL = 'product?latitude=25.18532943725586&longitude=55.262935638427734&limit=&page=1&search=&categories=&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$user_id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover';
+            $navbarURL = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories=&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$user_id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover';
         }
         $getNavbarResponce = $this->curlGetRequest($navbarURL);
         $nav_json_decoded_value = json_decode($getNavbarResponce);
@@ -629,7 +727,7 @@ class User extends MY_Shop_Controller
         $array['datas'] = NULL;
         $postTypes =  $this->input->get("nav");
         $array['PostId'] = '';
-        $productURL = 'product/writeup?limit=&page=1&showall=&writeupType=comment%2Creview&userId='.$id.'&postType='.$postTypes.'&categories='.$main_parent.'&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude=21.216766357421875&longitude=72.8458251953125&LanguageCode=en';
+        $productURL = 'product/writeup?limit=&page=1&showall=&writeupType=comment%2Creview&userId='.$id.'&postType='.$postTypes.'&categories='.$main_parent.'&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude='.$this->latitude.'&longitude='.$this->longitude.'&LanguageCode=en';
         $getProductResponce = $this->curlGetRequest($productURL);
         $product_json_decoded_value = json_decode($getProductResponce);
         $products = $product_json_decoded_value->Writeups;
@@ -654,7 +752,7 @@ class User extends MY_Shop_Controller
         $array['datas'] = NULL;
         $postTypes =  $this->input->get("nav");
         $array['PostId'] = '';
-        $productURL = 'product/writeup?limit=&page=1&showall=&writeupType='.$wallType.'&userId='.$id.'&postType='.$postTypes.'&categories='.$main_parent.'&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude=21.21677017211914&longitude=72.84398651123047&LanguageCode=en&timezone=Asia%2FKolkata';
+        $productURL = 'product/writeup?limit=&page=1&showall=&writeupType='.$wallType.'&userId='.$id.'&postType='.$postTypes.'&categories='.$main_parent.'&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude='.$this->latitude.'&longitude='.$this->longitude.'&LanguageCode=en&timezone=Asia%2FKolkata';
         $getProductResponce = $this->curlGetRequest($productURL);
         $product_json_decoded_value = json_decode($getProductResponce);
         $products = $product_json_decoded_value->Writeups;

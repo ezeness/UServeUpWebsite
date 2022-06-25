@@ -1,9 +1,12 @@
 $(window).bind('scroll', function() {
-    var st = $('.header').height();
+    var st = $('.header-top').height();
     if ($(window).scrollTop() > st) {
-        $('.header').addClass('header-fixed');
+        $('.header-top').addClass('header-fixed');
+        $('#main_body_div').css('margin-top', '15%');
     } else {
-        $('.header').removeClass('header-fixed');
+        $('.header-top').removeClass('header-fixed');
+        $('#main_body_div').css('margin-top', '0px');
+
     }
 });
 var sortings = '';

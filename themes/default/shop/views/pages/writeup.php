@@ -4,7 +4,7 @@
     display:none !important;
 }
 </style>
-<div class="tab-content tab-borda index_top">
+<div class="tab-content tab-borda">
     <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post">
         <div class="header-benner">
             <!-- <div class="container">

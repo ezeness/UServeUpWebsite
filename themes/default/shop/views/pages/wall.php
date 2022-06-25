@@ -5,8 +5,8 @@
 }
 </style>
 
-
-<div class="tab-content tab-borda index_top">
+<section>
+<div class="tab-content tab-borda">
     <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post">
         <div class="header-benner">
             <!-- <div class="container">
@@ -545,7 +545,7 @@
                 </div>
             </div>
         </section>
-
+   </section>
 
         <script>
  $('.slider-blocks').css('height', '150px');

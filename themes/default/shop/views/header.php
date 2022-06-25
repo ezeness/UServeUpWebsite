@@ -54,13 +54,11 @@ $uri =  $this->uri->segment(1);
 }
 </style>
 </head>
-
-<body>
+  <body>
     <div class="overlay show"></div>
     <div class="loader_overlay" style="display:none">
         <div class="loading">Loading&#8230;</div>
     </div>
-    <div class="wrapper">
         <header class="header" id="home">
             <div class="header-top">
                 <div class="container">
@@ -73,6 +71,7 @@ $uri =  $this->uri->segment(1);
                                     <!-- <img src="<?= $assets; ?>images/logo.png" alt="" class="img-fluid"> -->
                                 </a>
                             </div>
+
                             <div class="service-24">
                                 <a href="<?=base_url('twentyseven')?>">
                                 <img src="<?= $assets; ?>images/Icons/24-7-png-8.png" alt=""></a>
@@ -160,6 +159,7 @@ $uri =  $this->uri->segment(1);
                                         <img  style="width:35px;border-radius: 50px;" src="<?=$loggedInUser->UserImage?>" alt="user icon">
                                     </p> 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="<?php echo site_url('/addresses'); ?>">Addresses</a>
                                     <a class="dropdown-item" href="<?php echo site_url('/profile/'.$loggedInUser->Id); ?>">Profile</a>
                                     <a class="dropdown-item" href="<?php echo site_url('/logout'); ?>">Logout</a>
                                 </div>
@@ -206,15 +206,15 @@ $uri =  $this->uri->segment(1);
                             </div>
                         </div>
                         <div class="header-bottom-right">
-                        <?php 
-                        if($loggedIn){?>
+                             <?php 
+                            if($loggedIn){ 
+                                if($loggedInUser->Store->LicenseType == 'Corp' && strpos($loggedInUser->Store->PlanName , '24') !== false){
+                                ?>
 
-                            <a href="<?=base_url('twentyseven')?>">
-                            <?php } else{?>
-                                <a href="#">
-                                <?php } ?>
+                            <a href="<?=base_url('twentyseven')?>">                               
                             <img src="<?= $assets; ?>images/Icons/24-7 icon.png" alt="24/7" class="img-fluid">
                             </a>
+                            <?php } } ?>
                         </div>
                     </div>
                     <div id="mySidenav" class="sidenav">
@@ -323,5 +323,5 @@ $uri =  $this->uri->segment(1);
 
 
         </header>
-    </div>
-    <div>
+
+       <div class="container" id="main_body_div">

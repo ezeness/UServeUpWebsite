@@ -14,6 +14,9 @@ class MY_Shop_Controller extends CI_Controller
             $this->data['loggedIn'] = $this->loggedIn;
             $this->utagUpCCategory = $this->utagUpCCategory($searchText = 'userveup');
             $this->utagUpCCategory =$this->utagUpCCategory->UTagupcategories[0];
+            $this->Userdetails = $this->session->userdata('userdata');
+            $this->longitude = $this->Userdetails ? $this->Userdetails->Address->Longitude : '';
+            $this->latitude = $this->Userdetails ? $this->Userdetails->Address->Latitude : '';
             $this->APIUrl = 'https://utagup.com/dev/index.php/api/';
             $this->data['utagUpCCategory'] = $this->utagUpCCategory;
             $this->data['loggedInUser'] = $this->session->userdata('userdata');

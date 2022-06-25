@@ -7,7 +7,7 @@ display:none;
 display:none !important;
 }
 </style>
-<section style="margin-top:15%;">
+<section>
     <div class="user-profile">
         <div class="container">
             <div class="user-profile-block" style="background-color: white;padding:10px 10px 10px 10px;">
@@ -330,7 +330,7 @@ display:none !important;
                                 <div class="main-category-block">
                              
                                     <div class="lsit-cate profileproducts">
-                                    <?php if ($shop_up) { ?>
+                                    <?php if (isset($shop_up)) { ?>
                                     <ul class="nav nav-tabs slider cate-silders same-tab" id="myTab" role="tablist" data-aos="fade-up" style="overflow: auto;overflow-y: hidden;display:none">
                                             <?php if ($catagories) : 
                                                 ?>
@@ -345,7 +345,7 @@ display:none !important;
                                                     </li>
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
-                                        </ul>   <?php } if ($datas) { ?>
+                                        </ul>   <?php } if (isset($datas)) { ?>
                                         <div class="tab-content" id="discover">
                                            <div class="tab-content" id="myTabContent" style="margin-top: -13px;">
                                              <div class="tag_title"><b>#Latest Posts</b></div>
@@ -393,7 +393,7 @@ display:none !important;
                                         </div>
                                         <?php } ?>
                                     </div>
-                                    <?php if ($shop_up) : ?>
+                                    <?php if (isset($shop_up)) : ?>
                                     <div class="" id="shop_up" style="display:none">
                                                 <section>
                                                     <div class="tab-content" id="myTabContent" style="margin-top: -13px;">

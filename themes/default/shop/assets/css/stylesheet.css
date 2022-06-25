@@ -191,11 +191,19 @@ header#home {
     float: left;
 }
 
+#main_body_div {
+    min-height: 400px;
+}
+
+.header-fixed {
+    position: fixed;
+}
+
 .header-top {
     width: 1024px;
     float: left;
     background: #fafafa;
-    position: fixed;
+    /* position: fixed; */
     z-index: 111;
 }
 
@@ -10278,6 +10286,10 @@ li {
     font-weight: 600;
     border: none;
     width: 50px;
+}
+
+.section_top {
+    margin-top: 10%;
 }
 
 

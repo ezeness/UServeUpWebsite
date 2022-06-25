@@ -50,12 +50,16 @@ $route['logout' ]= 'user/logout';
 $route['validatecode']= 'user/validatecode';
 $route['checkEmail']= 'user/checkEmail';
 $route['verifyUser']= 'user/verifyUser';
-$route['emailValidate(:any)']= 'user/emailValidate/$1';
+$route['emailValidate/(:any)']= 'user/emailValidate/$1';
 $route['invite_sent']= 'user/invite_sent';
 $route['invite_type']= 'user/invite_type';
 $route['invitation_list']= 'user/invitation_list';
 $route['invitation']= 'user/invitation';
 $route['edit_profile']= 'user/edit_profile';
+$route['add_address']= 'user/add_address';
+$route['addresses']= 'user/addresses';
+$route['defaultAddress/(:any)/(:any)']= 'user/defaultAddress/$1/$2';
+$route['deleteAddress/(:any)']='user/deleteAddress/$1';
 // Page route
 // $route['product/(:any)'] = 'shop/shop/page/$1';
 

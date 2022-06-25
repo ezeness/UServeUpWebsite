@@ -276,14 +276,14 @@ display:none;
             </div>
           </div>
                 <div class="col-sm-12 address_detials" style="display:none">
-                <div class="card-body p-md-4 map col-sm-6" style="float:left">
-                    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                   
-                    <div id="map-canvas"></div>
-                        
-                </div>
-                <div class="card-body p-md-4 col-sm-6" style="float:left">
-                <div class="">
+                    <div class="card-body p-md-4 map col-sm-6" style="float:left">
+                        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                    
+                        <div id="map-canvas"></div>
+                            
+                    </div>
+                     <div class="card-body p-md-4 col-sm-6" style="float:left">
+                     <div class="">
                 <?= form_open('user/addAdress', 'class="AddAdress"'); ?>
                     <!-- <form  action="<?=base_url('user/addAdress')?>" method="POST" >  -->
                     <input type="hidden" name="latitude" class="MapLat" value="25.276987">
@@ -538,7 +538,20 @@ function initialize() {
       bounds.extend(place.geometry.location);
     }
 
-    map.fitBounds(bounds);
+    // This is needed to set the zoom after fitbounds, 
+google.maps.event.addListener(map, 'zoom_changed', function() {
+    zoomChangeBoundsListener = 
+        google.maps.event.addListener(map, 'bounds_changed', function(event) {
+            if (this.getZoom() > 15 && this.initialZoom == true) {
+                // Change max/min zoom here
+                this.setZoom(15);
+                this.initialZoom = false;
+            }
+        google.maps.event.removeListener(zoomChangeBoundsListener);
+    });
+});
+map.initialZoom = true;
+map.fitBounds(bounds);
   });
   // [END region_getplaces]
 
