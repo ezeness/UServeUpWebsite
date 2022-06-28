@@ -96,7 +96,7 @@
                                               foreach ($hashtags as $hashtag) {
                                               ?>  
                                               <li class="nav-item">
-                                                    <a class="nav-link" onclick="loadProducts('','','','discover' , '<?= $hashtag['HashTagId']?>')" id="motord-tab"  data-toggle="tab" href="#motord" role="tab" aria-controls="motord" aria-selected="true" style="width:90px; height:131px">
+                                                    <a class="nav-link" onclick="loadProducts('','','','discover' , '<?= $hashtag['HashTagMost']?>')" id="motord-tab"  data-toggle="tab" href="#motord" role="tab" aria-controls="motord" aria-selected="true" style="width:90px; height:131px">
                                                         <img src="<?php echo $assets?>images/hashtag.png" alt="icomn" style="height:70px; width:70px; object-fit: cover; border-radius: 50%;">
                                                         <p> <?=$hashtag['HashTagTitle']?></p>
                                                     </a>
@@ -198,7 +198,7 @@
                                 <div class="tab-pane fade show active" id="motord" role="tabpanel" aria-labelledby="motord-tab">
                                     
                                     <div class="product-home">
-                                        <div class="home-products">
+                                        <div class="home-product">
                       
                             <?php foreach ($shop_up as $data) { ?>
                                 <div class="product-box height_box col-sm-4" data-aos="fade-up" style="height: 286px;">

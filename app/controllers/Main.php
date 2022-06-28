@@ -14,7 +14,7 @@ class Main extends MY_Shop_Controller
         
         $id = $this->session->userdata('UserId');
         /////////////////////////////////Discover Products////////////////////////////////////////
-        $discoverurl = 'product?latitude=25.18532943725586&longitude=55.262935638427734&limit=&page=1&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=discover&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover';
+        $discoverurl = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=discover&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover';
         $discoverProducts = $this->curlGetRequest($discoverurl);
         $product_json_decoded_value = json_decode($discoverProducts);
         $products = $product_json_decoded_value->Products;
@@ -22,16 +22,20 @@ class Main extends MY_Shop_Controller
         foreach ($products as $key => $value) {
             $this->data['datas'][$key] = json_decode(json_encode($value->Details), true);
         }
+        foreach ($navBar as $key => $value) {
+            $this->data['discovernavbar'][$key] = json_decode(json_encode($value), true);
+        }
         //////////////////////////////Store Products//////////////////////////////////////
-        $storeproducturl = 'product?latitude=25.18532943725586&longitude=55.262935638427734&limit=&page=1&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=store&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover';
+        $storeproducturl = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=store&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover';
         $storeproduct_response = $this->curlGetRequest($storeproducturl);
         $storeproduct_json_decoded_value = json_decode($storeproduct_response);
         $storeproducts = $storeproduct_json_decoded_value->Products;
         foreach ($storeproducts as $key => $value) {
             $this->data['shop_up'][$key] = json_decode(json_encode($value->Details), true);
         }
-        foreach ($navBar as $key => $value) {
-            $this->data['navbar'][$key] = json_decode(json_encode($value), true);
+        $storenavbar = $storeproduct_json_decoded_value->PostTypes;
+        foreach ($storenavbar as $key => $value) {
+            $this->data['storenavbar'][$key] = json_decode(json_encode($value), true);
         }
         
 
@@ -57,7 +61,7 @@ class Main extends MY_Shop_Controller
 
         ////////////////////////////Timeline ////////////////////////////////////
 
-        $timelineURL = 'product?latitude=37.421722412109375&longitude=-122.08419036865234&limit=10&page=&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=home&IsBanner=0&userId='.$id.'&includechainproduct=1&hasLocationSwitch=0&hashTagId=&specialcategoryId=&similarpostId=&packageId=&bannertype=null&filter=&mostpopular=&LanguageCode=en&timezone=Asia%2FCalcutta';
+        $timelineURL = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=10&page=&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=home&IsBanner=0&userId='.$id.'&includechainproduct=1&hasLocationSwitch=0&hashTagId=&specialcategoryId=&similarpostId=&packageId=&bannertype=null&filter=&mostpopular=&LanguageCode=en&timezone=Asia%2FCalcutta';
         $Timeline_response = $this->curlGetRequest($timelineURL);
         $Timeline_json_decoded_value = json_decode($Timeline_response);
         $Timeline = '';
@@ -98,7 +102,7 @@ class Main extends MY_Shop_Controller
     {
         $id = $this->session->userdata('UserId');
         $postTypes =  $this->input->get("nav");
-        $productURL ="product?latitude=25.18532943725586&longitude=55.262935638427734&limit=&page=1&search=&categories=&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=home&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover";
+        $productURL ='product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories=&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=home&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover';
        
        /////////////////API CALLING ///////////
         $product_response = $this->curlGetRequest($productURL);
@@ -113,7 +117,7 @@ class Main extends MY_Shop_Controller
             $this->data['navbar'][$key] = json_decode(json_encode($value), true);
         }
         ////////////////////////Stories//////////////////////////////
-        $storiesURL = 'product/productstory?latitude=37.421722412109375&longitude=-122.08419036865234&limit=18&page=1&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=discover&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=IsStory=1';
+        $storiesURL = 'product/productstory?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=18&page=1&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=discover&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=IsStory=1';
         $getstoriesResponce = $stories_response->getBody();
         $stories_json_decoded_value = json_decode($getstoriesResponce);
         $stories = $stories_json_decoded_value->Story;
@@ -146,7 +150,7 @@ class Main extends MY_Shop_Controller
     {
         $id = $this->session->userdata('UserId');
         $postTypes =  $this->input->get("nav");
-        $productURL = 'store/twentyfour_store/'.$id.'?latitude=21.698959350585938&longitude=71.5198745727539&Is24Service=0&limit=18&page=1';
+        $productURL = 'store/twentyfour_store/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&Is24Service=0&limit=18&page=1';
          /////////////////API CALLING ///////////
          $product_response = $this->curlGetRequest($productURL);
          $product_json_decoded_value = json_decode($product_response);
@@ -155,7 +159,7 @@ class Main extends MY_Shop_Controller
             $this->data['allstories'][$key] = json_decode(json_encode($value), true);
         }
         ////////////////////////////////////Store API Calling/////////////////////////////////////////////
-        $twentyfourURL = 'store/twentyfour_store/'.$id.'?latitude=21.698959350585938&longitude=71.5198745727539&Is24Service=1&limit=18&page=1';
+        $twentyfourURL = 'store/twentyfour_store/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&Is24Service=1&limit=18&page=1';
         $twentyfour_response = $this->curlGetRequest($twentyfourURL);
         $twentyfour_json_decoded_value = json_decode($twentyfour_response);
         $twentyfour = $twentyfour_json_decoded_value->TwentyFourStores;
@@ -169,7 +173,7 @@ class Main extends MY_Shop_Controller
     {
         $id = $this->session->userdata('UserId');
         $postTypes =  $this->input->get("nav");
-        $writeupURL = 'product/writeup?limit=&page=1&showall=&writeupType=comment%2Creview&userId='.$id.'&postType=&categories=&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude=21.216766357421875&longitude=72.8458251953125&LanguageCode=en';
+        $writeupURL = 'product/writeup?limit=&page=1&showall=&writeupType=comment%2Creview&userId='.$id.'&postType=&categories=&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude='.$this->latitude.'&longitude='.$this->longitude.'&LanguageCode=en';
          /////////////////API CALLING ///////////
         $getwriteupResponce = $this->curlGetRequest($writeupURL);
         $writeup_json_decoded_value = json_decode($getwriteupResponce);
@@ -252,14 +256,16 @@ class Main extends MY_Shop_Controller
             }
         }
         $this->data['filter'] = '';
-        $this->data['page_title'] = 'Write Up';
+        $this->data['page_title'] = 'Search Results';
         $this->page_construct('pages/search', $this->data);
     }
+
+
     public function nearbystores()
     {
         $id = $this->session->userdata('UserId');
         $postTypes =  $this->input->get("nav");
-        $AllStoreUrl = 'store/twentyfour_store/'.$id.'?latitude=21.69953155517578&longitude=71.51920318603516&Is24Service=0&limit=18&page=1';
+        $AllStoreUrl = 'store/twentyfour_store/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&Is24Service=0&limit=18&page=1';
          /////////////////API CALLING ///////////
         $getAllStoreResponce = $this->curlGetRequest($AllStoreUrl);
         $AllStore_json_decoded_value = json_decode($getAllStoreResponce);
@@ -269,7 +275,7 @@ class Main extends MY_Shop_Controller
                 $this->data['AllStores'][$key] = json_decode(json_encode($value), true);
             }
         }
-        $NearAllStoreUrl = 'store/twentyfour_store/'.$id.'?latitude=21.69953155517578&longitude=71.51920318603516&Is24Service=1&limit=18&page=1';
+        $NearAllStoreUrl = 'store/twentyfour_store/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&Is24Service=1&limit=18&page=1';
         /////////////////API CALLING ///////////
        $getNearAllStoreResponce = $this->curlGetRequest($NearAllStoreUrl);
        $NearAllStore_json_decoded_value = json_decode($getNearAllStoreResponce);
@@ -279,7 +285,7 @@ class Main extends MY_Shop_Controller
                $this->data['NearAllStores'][$key] = json_decode(json_encode($value), true);
            }
        }
-       $AllStoreUrl = 'store/twentyfour_store/'.$id.'?latitude=21.69953155517578&longitude=71.51920318603516&Is24Service=0&limit=18&page=1';
+       $AllStoreUrl = 'store/twentyfour_store/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&Is24Service=0&limit=18&page=1';
        /////////////////API CALLING ///////////
       $getAllStoreResponce = $this->curlGetRequest($AllStoreUrl);
       $AllStore_json_decoded_value = json_decode($getAllStoreResponce);
@@ -298,7 +304,7 @@ class Main extends MY_Shop_Controller
         $id = $this->session->userdata('UserId');
         $postTypes =  $this->input->get("nav");
         $array['page_name'] = '';
-        $writeupURL ='product/writeup?limit=&page=1&showall=&writeupType=hiring%2Cseeking&userId='.$id.'&postType=&categories=&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude=21.21677017211914&longitude=72.84398651123047&LanguageCode=en&timezone=Asia%2FKolkata';
+        $writeupURL ='product/writeup?limit=&page=1&showall=&writeupType=hiring%2Cseeking&userId='.$id.'&postType=&categories=&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude='.$this->latitude.'&longitude='.$this->longitude.'&LanguageCode=en&timezone=Asia%2FKolkata';
         $getwriteupResponce = $this->curlGetRequest($writeupURL);
         $writeup_json_decoded_value = json_decode($getwriteupResponce);
         $writeup = $writeup_json_decoded_value->Writeups;
@@ -306,14 +312,14 @@ class Main extends MY_Shop_Controller
             $this->data['wall'][$key] = json_decode(json_encode($value), true);
         }
 
-        $hiringURL = 'product/writeup?limit=&page=1&showall=&writeupType=hiring&userId='.$id.'&postType=&categories=&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude=21.21677017211914&longitude=72.84398651123047&LanguageCode=en&timezone=Asia%2FKolkata';
+        $hiringURL = 'product/writeup?limit=&page=1&showall=&writeupType=hiring&userId='.$id.'&postType=&categories=&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude='.$this->latitude.'&longitude='.$this->longitude.'&LanguageCode=en&timezone=Asia%2FKolkata';
         $gethiringResponce = $this->curlGetRequest($hiringURL);
         $hiring_json_decoded_value = json_decode($gethiringResponce);
         $hiring = $hiring_json_decoded_value->Writeups;
         foreach ($hiring as $key => $value) {
             $this->data['hiring'][$key] = json_decode(json_encode($value), true);
         }
-        $seekingURL = 'product/writeup?limit=&page=1&showall=&writeupType=seeking&userId='.$id.'&postType=&categories=&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude=21.21677017211914&longitude=72.84398651123047&LanguageCode=en&timezone=Asia%2FKolkata';
+        $seekingURL = 'product/writeup?limit=&page=1&showall=&writeupType=seeking&userId='.$id.'&postType=&categories=&hashTagId=&profileId=&searchtxt=&utagupcategory='.$this->utagUpCCategory->Id.'&latitude='.$this->latitude.'&longitude=72.84398651123047&LanguageCode=en&timezone=Asia%2FKolkata';
         $getseekingResponce = $this->curlGetRequest($seekingURL);
         $seeking_json_decoded_value = json_decode($getseekingResponce);
         $seeking = $seeking_json_decoded_value->Writeups;
@@ -336,7 +342,6 @@ class Main extends MY_Shop_Controller
         $sortings =  $this->input->get("sortings");
         $postTypes =  $this->input->get("nav");
         $isSpecial =  $this->input->get("isSpecial");
-        $hashtag_id =  $this->input->get("hashtag_id");
         if(!empty($isSpecial)){
             $isSpecial= $main_parent;
             $main_parent = '';
@@ -344,15 +349,12 @@ class Main extends MY_Shop_Controller
         if(empty($postTypes)){
             $postTypes = 'callup,bookup,shopup';
         }
-        if($hashtag_id > 0 ||$hashtag_id ==0){
-            $postTypes = '';
-        }
         $page_name =  $this->input->get("page_name");
         if($postTypes == 'postup'){
             $page_name = 'discover';
         }
         $array['PostId'] = '';
-        $productURL ='product?latitude=25.18532943725586&longitude=55.262935638427734&limit=18&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId='.$hashtag_id.'&similarpostId=&packageId='.$parent_id.'&bannertype=store&mostpopular=&LanguageCode=en&timezone=&sorting='.$sortings.'&specialcategoryId='.$isSpecial;
+        $productURL ='product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=18&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=store&mostpopular=&LanguageCode=en&timezone=&sorting='.$sortings.'&specialcategoryId='.$isSpecial;
         $getProductResponce = $this->curlGetRequest($productURL);
         $product_json_decoded_value = json_decode($getProductResponce);
 
@@ -361,9 +363,9 @@ class Main extends MY_Shop_Controller
                 $array['datas'][$key] = json_decode(json_encode($value->Details), true);
             }
          if($parent_id && $main_parent){
-            $navbarURL = 'product?latitude=25.18532943725586&longitude=55.262935638427734&limit=18&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=store&mostpopular=&LanguageCode=en&timezone=&sorting='.$sortings.'&specialcategoryId='.$isSpecial;
+            $navbarURL = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=18&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=store&mostpopular=&LanguageCode=en&timezone=&sorting='.$sortings.'&specialcategoryId='.$isSpecial;
         } else {
-            $navbarURL = 'product?latitude=25.18532943725586&longitude=55.262935638427734&limit=18&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=store&mostpopular=&LanguageCode=en&timezone=&sorting='.$sortings.'&specialcategoryId='.$isSpecial;
+            $navbarURL = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=18&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=store&mostpopular=&LanguageCode=en&timezone=&sorting='.$sortings.'&specialcategoryId='.$isSpecial;
         }
         $getNavbarResponce = $this->curlGetRequest($navbarURL);
         $nav_json_decoded_value = json_decode($getNavbarResponce);
@@ -372,6 +374,22 @@ class Main extends MY_Shop_Controller
             $array['navbar'][$key] = json_decode(json_encode($value), true);
             }
       
+        echo json_encode( $array);
+
+    }
+
+    public function getProductsbyHashtags($hashtag = ''){
+        $id = $this->session->userdata('UserId');
+        $array['datas'] = NULL;
+        $productURL ='product/hashtagposts/'.$hashtag.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=10&page=1&languagecode=en';
+        $getProductResponce = $this->curlGetRequest($productURL);
+        $product_json_decoded_value = json_decode($getProductResponce);
+        $products = $product_json_decoded_value->Products;
+        if(!empty($products)){
+            foreach ($products as $key => $value) {
+                $array['datas'][$key] = json_decode(json_encode($value->Details), true);
+            }
+        }
         echo json_encode( $array);
 
     }
@@ -476,343 +494,6 @@ class Main extends MY_Shop_Controller
         }
         //header("application/json");
         echo json_encode( $array);
-    }
-
-
-    function profile($act = NULL) {
-        if (!$this->loggedIn) { redirect('/'); }
-        if (!SHOP || $this->Staff) { redirect('admin/users/profile/'.$this->session->userdata('user_id')); }
-        $user = $this->ion_auth->user()->row();
-        if ($act == 'user') {
-
-            $this->form_validation->set_rules('first_name', lang("first_name"), 'required');
-            $this->form_validation->set_rules('last_name', lang("last_name"), 'required');
-            $this->form_validation->set_rules('phone', lang("phone"), 'required');
-            $this->form_validation->set_rules('email', lang("email"), 'required|valid_email');
-            $this->form_validation->set_rules('company', lang("company"), 'trim');
-            $this->form_validation->set_rules('vat_no', lang("vat_no"), 'trim');
-            $this->form_validation->set_rules('address', lang("billing_address"), 'required');
-            $this->form_validation->set_rules('city', lang("city"), 'required');
-            $this->form_validation->set_rules('state', lang("state"), 'required');
-            $this->form_validation->set_rules('postal_code', lang("postal_code"), 'required');
-            $this->form_validation->set_rules('country', lang("country"), 'required');
-            if ($user->email != $this->input->post('email')) {
-                $this->form_validation->set_rules('email', lang("email"), 'trim|is_unique[users.email]');
-            }
-
-            if ($this->form_validation->run() === TRUE) {
-
-                $bdata = [
-                    'name' => $this->input->post('first_name').' '.$this->input->post('last_name'),
-                    'phone' => $this->input->post('phone'),
-                    'email' => $this->input->post('email'),
-                    'company' => $this->input->post('company'),
-                    'vat_no' => $this->input->post('vat_no'),
-                    'address' => $this->input->post('address'),
-                    'city' => $this->input->post('city'),
-                    'state' => $this->input->post('state'),
-                    'postal_code' => $this->input->post('postal_code'),
-                    'country' => $this->input->post('country'),
-                ];
-
-                $udata = [
-                    'first_name' => $this->input->post('first_name'),
-                    'last_name' => $this->input->post('last_name'),
-                    'company' => $this->input->post('company'),
-                    'phone' => $this->input->post('phone'),
-                    'email' => $this->input->post('email'),
-                ];
-
-                if ($this->ion_auth->update($user->id, $udata) && $this->shop_model->updateCompany($user->company_id, $bdata)) {
-                    $this->session->set_flashdata('message', lang('user_updated'));
-                    $this->session->set_flashdata('message', lang('billing_data_updated'));
-                    redirect("profile");
-                }
-
-            } else {
-                $this->session->set_flashdata('error', validation_errors());
-                redirect($_SERVER["HTTP_REFERER"]);
-            }
-
-        } elseif ($act == 'password') {
-
-            $this->form_validation->set_rules('old_password', lang('old_password'), 'required');
-            $this->form_validation->set_rules('new_password', lang('new_password'), 'required|min_length[8]|max_length[25]');
-            $this->form_validation->set_rules('new_password_confirm', lang('confirm_password'), 'required|matches[new_password]');
-
-            if ($this->form_validation->run() == false) {
-                $this->session->set_flashdata('error', validation_errors());
-                redirect('profile');
-            } else {
-                if (DEMO) {
-                    $this->session->set_flashdata('warning', lang('disabled_in_demo'));
-                    redirect($_SERVER["HTTP_REFERER"]);
-                }
-
-                $identity = $this->session->userdata($this->config->item('identity', 'ion_auth'));
-                $change = $this->ion_auth->change_password($identity, $this->input->post('old_password'), $this->input->post('new_password'));
-
-                if ($change) {
-                    $this->session->set_flashdata('message', $this->ion_auth->messages());
-                    $this->logout('m');
-                } else {
-                    $this->session->set_flashdata('error', $this->ion_auth->errors());
-                    redirect('profile');
-                }
-            }
-
-        }
-
-        $this->data['featured_products'] = $this->shop_model->getFeaturedProducts();
-        $this->data['customer'] = $this->site->getCompanyByID($this->session->userdata('company_id'));
-        $this->data['user'] = $this->site->getUser();
-        $this->data['page_title'] = lang('profile');
-        $this->data['page_desc'] = $this->shop_settings->description;
-        $this->page_construct('user/profile', $this->data);
-    }
-
-    function login($m = NULL) {
-        if (!SHOP || $this->Settings->mmode) { redirect('admin/login'); }
-        if ($this->loggedIn) {
-            $this->session->set_flashdata('error', $this->session->flashdata('error'));
-            redirect('/');
-        }
-
-        if ($this->Settings->captcha) {
-            $this->form_validation->set_rules('captcha', lang('captcha'), 'required|callback_captcha_check');
-        }
-
-        if ($this->form_validation->run('auth/login') == true) {
-
-            $remember = (bool)$this->input->post('remember_me');
-
-            if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
-                if ($this->Settings->mmode) {
-                    if (!$this->ion_auth->in_group('owner')) {
-                        $this->session->set_flashdata('error', lang('site_is_offline_plz_try_later'));
-                        redirect('logout');
-                    }
-                }
-
-                $this->session->set_flashdata('message', $this->ion_auth->messages());
-                $referrer = ($this->session->userdata('requested_page') && $this->session->userdata('requested_page') != 'admin') ? $this->session->userdata('requested_page') : '/';
-                redirect($referrer);
-            } else {
-                $this->session->set_flashdata('error', $this->ion_auth->errors());
-                redirect('login');
-            }
-
-        } else {
-
-            $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
-            $this->data['message'] = $m ? lang('password_changed') : $this->session->flashdata('message');
-            $this->data['page_title'] = lang('login');
-            $this->data['page_desc'] = $this->shop_settings->description;
-            $this->page_construct('user/login', $this->data);
-
-        }
-    }
-
-    function logout($m = NULL) {
-        if (!SHOP) { redirect('admin/logout'); }
-        $logout = $this->ion_auth->logout();
-        $referrer = (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : '/');
-        $this->session->set_flashdata('message', $this->ion_auth->messages());
-        redirect($m ? 'login/m' : $referrer);
-    }
-
-    function register() {
-
-        $this->form_validation->set_rules('first_name', lang("first_name"), 'required');
-        $this->form_validation->set_rules('last_name', lang("last_name"), 'required');
-        $this->form_validation->set_rules('phone', lang("phone"), 'required');
-        $this->form_validation->set_rules('company', lang("company"), 'required');
-        $this->form_validation->set_rules('email', lang("email_address"), 'required|is_unique[users.email]');
-        $this->form_validation->set_rules('username', lang("username"), 'required|is_unique[users.username]');
-        $this->form_validation->set_rules('password', lang('password'), 'required|min_length[8]|max_length[20]|matches[password_confirm]');
-        $this->form_validation->set_rules('password_confirm', lang('confirm_password'), 'required');
-
-        if ($this->form_validation->run('') == true) {
-
-            $email = strtolower($this->input->post('email'));
-            $username = strtolower($this->input->post('username'));
-            $password = $this->input->post('password');
-
-            $customer_group = $this->shop_model->getCustomerGroup($this->Settings->customer_group);
-            $price_group = $this->shop_model->getPriceGroup($this->Settings->price_group);
-
-            $company_data = [
-                'company' => $this->input->post('company') ? $this->input->post('company') : '-',
-                'name' => $this->input->post('first_name').' '.$this->input->post('last_name'),
-                'email' => $this->input->post('email'),
-                'phone' => $this->input->post('phone'),
-                'group_id' => 3,
-                'group_name' => 'customer',
-                'customer_group_id' => (!empty($customer_group)) ? $customer_group->id : NULL,
-                'customer_group_name' => (!empty($customer_group)) ? $customer_group->name : NULL,
-                'price_group_id' => (!empty($price_group)) ? $price_group->id : NULL,
-                'price_group_name' => (!empty($price_group)) ? $price_group->name : NULL,
-            ];
-
-            $company_id = $this->shop_model->addCustomer($company_data);
-
-            $additional_data = [
-                'first_name' => $this->input->post('first_name'),
-                'last_name' => $this->input->post('last_name'),
-                'phone' => $this->input->post('phone'),
-                'company' => $this->input->post('company'),
-                'gender' => 'male',
-                'company_id' => $company_id,
-                'group_id' => 3
-            ];
-            $this->load->library('ion_auth');
-        }
-
-        if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data)) {
-            $this->session->set_flashdata('message', lang("account_created"));
-            redirect('login');
-        } else {
-            $this->session->set_flashdata('error', validation_errors());
-            redirect('login#register');
-        }
-    }
-
-    function activate($id, $code) {
-        if (!SHOP) { redirect('admin/auth/activate/'.$id.'/'.$code); }
-        if ($code) {
-            if ($activation = $this->ion_auth->activate($id, $code)) {
-                $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect("login");
-            }
-        } else {
-            $this->session->set_flashdata('error', $this->ion_auth->errors());
-            redirect("login");
-        }
-    }
-
-    function forgot_password() {
-        if (!SHOP) { redirect('admin/auth/forgot_password'); }
-        $this->form_validation->set_rules('email', lang('email_address'), 'required|valid_email');
-
-        if ($this->form_validation->run() == false) {
-            $this->sma->send_json(validation_errors());
-        } else {
-
-            $identity = $this->ion_auth->where('email', strtolower($this->input->post('email')))->users()->row();
-            if (empty($identity)) {
-                $this->sma->send_json(lang('forgot_password_email_not_found'));
-            }
-
-            $forgotten = $this->ion_auth->forgotten_password($identity->email);
-            if ($forgotten) {
-                $this->sma->send_json(['status' => 'success', 'message' => $this->ion_auth->messages()]);
-            } else {
-                $this->sma->send_json(['status' => 'error', 'message' => $this->ion_auth->errors()]);
-            }
-        }
-    }
-
-    function reset_password($code = NULL) {
-        if (!SHOP) { redirect('admin/auth/reset_password/'.$code); }
-        if (!$code) {
-            $this->session->set_flashdata('error', lang('page_not_found'));
-            redirect('/');
-        }
-
-        $user = $this->ion_auth->forgotten_password_check($code);
-
-        if ($user) {
-
-            $this->form_validation->set_rules('new', lang('password'), 'required|min_length[8]|max_length[25]|matches[new_confirm]');
-            $this->form_validation->set_rules('new_confirm', lang('confirm_password'), 'required');
-
-            if ($this->form_validation->run() == false) {
-
-                $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
-                $this->data['message'] = $this->session->flashdata('message');
-                $this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
-                $this->data['new_password'] = [
-                    'name' => 'new',
-                    'id' => 'new',
-                    'type' => 'password',
-                    'class' => 'form-control',
-                    'required' => 'required',
-                    'pattern' => '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}',
-                    'data-fv-regexp-message' => lang('pasword_hint'),
-                    'placeholder' => lang('new_password')
-                ];
-                $this->data['new_password_confirm'] = [
-                    'name' => 'new_confirm',
-                    'id' => 'new_confirm',
-                    'type' => 'password',
-                    'class' => 'form-control',
-                    'required' => 'required',
-                    'data-fv-identical' => 'true',
-                    'data-fv-identical-field' => 'new',
-                    'data-fv-identical-message' => lang('pw_not_same'),
-                    'placeholder' => lang('confirm_password')
-                ];
-                $this->data['user_id'] = [
-                    'name' => 'user_id',
-                    'id' => 'user_id',
-                    'type' => 'hidden',
-                    'value' => $user->id,
-                ];
-                $this->data['code'] = $code;
-                $this->data['identity_label'] = $user->email;
-                $this->data['page_title'] = lang('reset_password');
-                $this->data['page_desc'] = '';
-                $this->page_construct('user/reset_password', $this->data);
-
-            } else {
-                // do we have a valid request?
-                if ($user->id != $this->input->post('user_id')) {
-
-                    $this->ion_auth->clear_forgotten_password_code($code);
-                    redirect('notify/csrf');
-
-                } else {
-                    // finally change the password
-                    $identity = $user->email;
-
-                    $change = $this->ion_auth->reset_password($identity, $this->input->post('new'));
-                    if ($change) {
-                        //if the password was successfully changed
-                        $this->session->set_flashdata('message', $this->ion_auth->messages());
-                        redirect('login');
-                    } else {
-                        $this->session->set_flashdata('error', $this->ion_auth->errors());
-                        redirect('reset_password/' . $code);
-                    }
-                }
-            }
-        } else {
-            //if the code is invalid then send them back to the forgot password page
-            $this->session->set_flashdata('error', $this->ion_auth->errors());
-            redirect('/');
-        }
-    }
-
-    function captcha_check($cap) {
-        $expiration = time() - 300; // 5 minutes limit
-        $this->db->delete('captcha', ['captcha_time <' => $expiration]);
-
-        $this->db->select('COUNT(*) AS count')
-        ->where('word', $cap)
-        ->where('ip_address', $this->input->ip_address())
-        ->where('captcha_time >', $expiration);
-
-        if ($this->db->count_all_results('captcha')) {
-            return true;
-        } else {
-            $this->form_validation->set_message('captcha_check', lang('captcha_wrong'));
-            return FALSE;
-        }
-    }
-
-    function hide($id = NULL) {
-        $this->session->set_userdata('hidden' . $id, 1);
-        echo true;
     }
 
     function language($lang) {

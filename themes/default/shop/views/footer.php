@@ -193,7 +193,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?=base_url('discover_people')?>">
                         <div class="menu-imgs">
                             <img src="<?= $assets; ?>images/place.png" alt="" style="filter: invert(40%);">
                         </div>

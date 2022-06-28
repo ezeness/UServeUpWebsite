@@ -4196,7 +4196,7 @@ textarea#myInput {
     display: block;
     height: 26px;
     margin-left: 1px;
-    width: 100%;
+    /* width: 100%; */
     padding-left: 5px;
     border-radius: 10px;
 }
@@ -6330,10 +6330,10 @@ label.upload__btn p:hover {
 .fol.folloes a {
     background-color: #1492e6;
     border-radius: 3px !important;
-    font-size: 12px !important;
+    font-size: 10px !important;
     max-width: 70px;
     width: 100%;
-    padding: 2px 2px 3px;
+    padding: 1px 1px 1px;
     font-weight: 600;
 }
 
@@ -10290,6 +10290,15 @@ li {
 
 .section_top {
     margin-top: 10%;
+}
+
+.remove_ufllow {
+    font-size: 13px;
+    float: right;
+    background-color: transparent !important;
+    color: #0378CC !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 

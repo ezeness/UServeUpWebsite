@@ -184,13 +184,16 @@ cats = function(subcat_id = '', parent_id = '', isSpecial = '', page_name = '') 
     });
 };
 loadProducts = function(catid = '', p_id = '', isSpecial = '', page_name = '', hashtag_id = '') {
+    var productUrl = "getProductsbyCtaegory/" + catid + '/' + p_id;
+
     if (hashtag_id != '') {
         navbar = '';
+        productUrl = "getProductsbyHashtags/" + hashtag_id;
     }
     $('.loader_overlay').css('display', 'block');
     closeNav();
     $.ajax({
-        url: base_url + "getProductsbyCtaegory/" + catid + '/' + p_id,
+        url: base_url + productUrl,
         type: 'GET',
         dataType: 'json',
         data: {
@@ -198,7 +201,6 @@ loadProducts = function(catid = '', p_id = '', isSpecial = '', page_name = '', h
             sortings: sortings,
             isSpecial: isSpecial,
             page_name: page_name,
-            hashtag_id: hashtag_id,
         },
         success: function(data) {
             if (data.navbar != null) {
@@ -299,6 +301,7 @@ loadProducts = function(catid = '', p_id = '', isSpecial = '', page_name = '', h
                               </div>
                               `;
                 }
+                console.log(view);
                 $(".home-product").empty();
                 $(".home-product").html(view);
                 $(".products").css('display', 'block');
@@ -325,10 +328,12 @@ loadProducts = function(catid = '', p_id = '', isSpecial = '', page_name = '', h
 
 $(".navbar_type").click(function() {
 
+    var page = 'store';
     navbar = $(this).data("type");
     if (navbar == 'postup') {
         $('.hash_tags').css('display', 'block');
         $('.cats_js').css('display', 'none');
+        page = 'discover';
     } else {
         $('.hash_tags').css('display', 'none');
         $('.cats_js').css('display', 'block');
@@ -649,7 +654,7 @@ $(".navbar_type").click(function() {
             }
         });
     } else {
-        cats(localStorage.getItem('SubCategoryId'), localStorage.getItem('MainCategoryId'), '', 'store');
+        cats(localStorage.getItem('SubCategoryId'), localStorage.getItem('MainCategoryId'), '', page);
     }
 });
 

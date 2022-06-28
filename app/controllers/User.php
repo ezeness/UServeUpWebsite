@@ -576,6 +576,7 @@ class User extends MY_Shop_Controller
         $page_name =  $this->input->get("page_name");
         $array['PostId'] = '';
         $productURL = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId=238&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=discover';
+
         $getProductResponce = $this->curlGetRequest($productURL);
         $product_json_decoded_value = json_decode($getProductResponce);
         $products = $product_json_decoded_value->Products;
@@ -762,7 +763,49 @@ class User extends MY_Shop_Controller
         echo json_encode( $array);
 
     }
+    public function discover_people()
+    {
 
+        $id = $this->session->userdata('user_id');
+         /////////////////API CALLING ///////////
+         $discoverUrl = 'user/getdiscoverpeople/'.$id.'?limit=10&page=1&offset=&search=&latitude='.$this->latitude.'&longitude='.$this->longitude.'';
+         $getdiscoverUrlResponce = $this->curlGetRequest($discoverUrl);
+         $discover_json_decoded_value = json_decode($getdiscoverUrlResponce);
+         $discover = $discover_json_decoded_value->Users; 
+         if(!empty($discover)){
+             foreach ($discover as $key => $value) {
+                 $this->data['Profiles'][$key] = json_decode(json_encode($value), true);
+             }
+         }
+        $this->data['filter'] = '';
+        $this->data['page_title'] = 'Discover People';
+        $this->page_construct('pages/discover_people', $this->data);
+    }
+
+    public function unfollow($id)
+    {
+        $url = $this->APIUrl.'user/unfollow';
+        $ch = curl_init($url);
+
+        $data = json_encode(['UserId'=>$this->session->userdata('user_id'), 'FollowerId'=>$id]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type:application/json',
+            'X-API-KEY: whostagging-UZGqUgKGiVmZEtvcQSvBeEaZF'
+        ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        $result = json_decode($result);
+        curl_close($ch);
+        if($result->Status == 1){
+            $this->session->set_flashdata('message', $result->ErrorMessege);
+
+            return redirect()->route('discover_people');
+        }else{
+            $this->session->set_flashdata('error', $result->ErrorMessege);
+            redirect('discover_people');
+        }
+    }
     public function addhighlights()
     {
         $array = [];

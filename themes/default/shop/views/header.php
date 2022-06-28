@@ -80,7 +80,6 @@ $uri =  $this->uri->segment(1);
                         <div class="med">
                             <div class="header-search">
                             <?= form_open('search', 'id="header_search"'); ?> 
-                            <!-- <form  name="header-search" method="POST"> -->
                                     <input type="text" placeholder="Search.." name="search">
                                     <button type="submit"><i class="fa fa-search"></i></button>
                                 </form>
@@ -180,17 +179,35 @@ $uri =  $this->uri->segment(1);
                             <div class="c-menu">
                                 <?php
                                ?>
-                                    <ul class="nav nav-tabs Navbar_Tabss">
+                                    <ul class="nav nav-tabs Navbar_Tabss discover_navbar">
 
                                     <?php
-                                        if (isset($navbar)) {
-                                            foreach ($navbar as $key) {
+                                        if (isset($discovernavbar)) {
+                                            foreach ($discovernavbar as $key) {
                                                 ?>
                                         <!-- <li class="nav-item">
                                             <a style="cursor: pointer;" 
                                             id="pills-<?=$key['Type']?>-tab" data-toggle="pill" href="#pills-<?=$key['Type']?>" role="tab" aria-controls="pills-<?=$key['Type']?>" aria-selected="true"
                                             class="nav-link <?php echo $filter == $key['Type'] ? 'active' : ''; ?> " data-type="<?=$key['Type']; ?>"><?=$key['Title']; ?></a>
                                         </li> -->
+                                        <li class="nav-item">
+                                            <a style="cursor: pointer;" 
+                                            id="pills-<?=$key['Type']?>-tab" data-toggle="pill" href="#pills-<?=$key['Type']?>" role="tab" aria-controls="pills-<?=$key['Type']?>" aria-selected="true"
+                                            class="nav-link navbar_type <?php echo $filter == $key['Type'] ? 'active' : ''; ?> " data-type="<?=$key['Type']; ?>"><?=$key['Title']; ?></a>
+                                        </li>
+
+                                        <?php
+                                            }
+                                        }
+                                    ?>
+                                    </ul>
+
+                                    <ul class="nav nav-tabs Navbar_Tabss store_navbar" style="display:none">
+
+                                    <?php
+                                        if (isset($storenavbar)) {
+                                            foreach ($storenavbar as $key) {
+                                                ?>
                                         <li class="nav-item">
                                             <a style="cursor: pointer;" 
                                             id="pills-<?=$key['Type']?>-tab" data-toggle="pill" href="#pills-<?=$key['Type']?>" role="tab" aria-controls="pills-<?=$key['Type']?>" aria-selected="true"

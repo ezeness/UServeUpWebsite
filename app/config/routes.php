@@ -21,6 +21,7 @@ $route['/home'] =  'Main/home';
 $route['writeup'] =  'Main/writeup';
 $route['nearbystores'] =  'Main/nearbystores';
 $route['search'] =  'Main/search';
+$route['discover_people'] =  'user/discover_people';
 $route['twentyseven'] =  'Main/twentyseven';
 $route['wall'] =  'Main/wall';
 $route['addPost'] =  'Shop/addPost';
@@ -34,6 +35,7 @@ $route['getCategories/(:any)/(:any)'] =  'Main/getCategories/$1/$2';
 $route['getsubcat2/(:any)'] =  'Main/getsubcat2/$1';
 $route['getsubcatsub/(:any)'] =  'Main/getsubcatsub/$1';
 $route['getProductsbyCtaegory'] =  'Main/getProductsbyCtaegory';
+$route['getProductsbyHashtags/(:any)'] =  'Main/getProductsbyHashtags/$1';
 $route['getProductsbyCtaegory/(:any)'] =  'Main/getProductsbyCtaegory/$1';
 $route['getProductsbyCtaegory/(:any)/(:any)'] =  'Main/getProductsbyCtaegory/$1/$2';
 $route['getProductsbyUserCtaegory'] =  'user/getProductsbyUserCtaegory';
@@ -60,6 +62,7 @@ $route['add_address']= 'user/add_address';
 $route['addresses']= 'user/addresses';
 $route['defaultAddress/(:any)/(:any)']= 'user/defaultAddress/$1/$2';
 $route['deleteAddress/(:any)']='user/deleteAddress/$1';
+$route['unfollow/(:any)']='user/unfollow/$1';
 // Page route
 // $route['product/(:any)'] = 'shop/shop/page/$1';
 
