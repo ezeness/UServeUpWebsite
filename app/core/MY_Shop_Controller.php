@@ -10,8 +10,9 @@ class MY_Shop_Controller extends CI_Controller
             
             $this->theme = 'default/shop/views/';
             $this->data['assets'] = base_url() . 'themes/default/shop/assets/';
-            $this->loggedIn = $this->session->userdata('identity');
+            $this->loggedIn = $this->sma->logged_in();
             $this->data['loggedIn'] = $this->loggedIn;
+
             $this->utagUpCCategory = $this->utagUpCCategory($searchText = 'ushipup');
             $this->utagUpCCategory =$this->utagUpCCategory->UTagupcategories[0];
             $this->Userdetails = $this->session->userdata('userdata');
@@ -20,8 +21,8 @@ class MY_Shop_Controller extends CI_Controller
             $this->latitude = $this->Userdetails ? $this->Userdetails->Address->Latitude : $new_arr[0]['geoplugin_latitude'];
             $this->APIUrl = 'https://utagup.com/dev/index.php/api/';
             $this->data['utagUpCCategory'] = $this->utagUpCCategory;
-            $this->data['loggedInUser'] = $this->session->userdata('userdata');
-
+            $this->data['loggedInUser'] = $this->Userdetails;
+            $this->data['allUtagUpCats'] = $this->utagUpCCategory();
             // $new_arr[]= unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['REMOTE_ADDR']));
             // echo "Latitude:".$new_arr[0]['geoplugin_latitude']." and Longitude:".$new_arr[0]['geoplugin_longitude']
     }
@@ -61,7 +62,7 @@ class MY_Shop_Controller extends CI_Controller
         
     }
 
-    public function utagUpCCategory($searchText)
+    public function utagUpCCategory($searchText = '')
     {
         $url = 'category/utagcategories?searchtxt='.$searchText;
         $utagUpCCategory = $this->curlGetRequest($url);

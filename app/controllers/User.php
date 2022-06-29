@@ -601,7 +601,9 @@ class User extends MY_Shop_Controller
     {
         if (!$this->loggedIn ) 
            {
+            $this->session->set_flashdata('error', 'Login to view this page!');
                redirect('signup'); 
+               
             }
         $this->data['PostId'] = '';
         $this->data['page_name'] = '';

@@ -59,11 +59,11 @@
             <div class="main-category">
                 <div class="">
                 <div class="filters_title">
-                <span id="discover_filter"><img src="<?=$assets;?>images/details_view_icon.png"></span>
-                <span id="shopup_filter" style="display:none"><img src="<?=$assets;?>images/grid.png"></span>
-                <span href="#" data-toggle="modal" data-target="#discoverModal" id="discoverSorting"><img src="<?= $assets; ?>images/sort.png" style="width:25px;float: right;"></span>
-                <span href="#" data-toggle="modal" data-target="#storeModal" id="storeSorting" style="display:none"><img src="<?= $assets; ?>images/sort.png" style="width:25px;float: right;"></span>
-                <span onclick="openNav()" style="cursor: pointer;"><img src="<?= $assets; ?>images/sliders-solid.svg" style="width: 17px;float: right;margin-top:4px; margin-right:4px;"></span>
+                <span id="discover_filter" onclick="cats('','','','store')"><img src="<?=$assets;?>images/grid.png"> <span>DISCOVER</span></span>
+                <span id="shopup_filter" style="display:none" onclick="cats('','','','discover')"><img src="<?=$assets;?>images/details_view_icon.png"> <span>SHOP</span></span>
+                <span href="#" data-toggle="modal" data-target="#discoverModal" id="discoverSorting"><img src="<?= $assets; ?>images/sort.png" style="height:25px;float: right;"></span>
+                <span href="#" data-toggle="modal" data-target="#storeModal" id="storeSorting" style="display:none"><img src="<?= $assets; ?>images/sort.png" style="height:25px;float: right;"></span>
+                <span onclick="openNav()" style="cursor: pointer;"><img src="<?= $assets; ?>images/categoryfiltericon.png" style="height:25px;float: right;margin-right:4px;"></span>
             </div>
             <?php if (isset($catagories)) { 
                                     ?>
@@ -284,6 +284,8 @@ $("#discover_filter").click(function(){
     $('#discover').slideUp("slow", function() {});
     $('.cats_js').slideDown("slow", function() {});
     $('.hash_tags').slideUp("slow", function() {});
+    $('#pills-postup-tab').css('display' , 'none');
+    $('.navbar_type').removeClass("active");
 
 });
 $("#shopup_filter").click(function(){
@@ -298,6 +300,9 @@ $("#shopup_filter").click(function(){
 
     $('.hash_tags').slideDown("slow", function() {});
     $('.cats_js').slideUp("slow", function() {});
+    $('#pills-postup-tab').css('display' , 'block');
+    $('.navbar_type').removeClass("active");
+
 
 
 });

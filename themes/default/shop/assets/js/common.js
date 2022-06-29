@@ -11,6 +11,7 @@ $(window).bind('scroll', function() {
 });
 var sortings = '';
 localStorage.removeItem('sortings');
+localStorage.removeItem('navFilter');
 
 var url = window.location.pathname.split('/').slice(-2)[0];
 var urlhome = window.location.pathname.split('/').slice(-1)[0];
@@ -130,18 +131,17 @@ $(".sortings").click(function() {
     filtertype = $(this).data("filtertype");
     localStorage.setItem('sortings', sortings);
     cats(localStorage.getItem('SubCategoryId'), localStorage.getItem('MainCategoryId'), '', filtertype);
-    $('#discover_filter img').css('display', 'none');
-    $('#shopup_filter img').css('display', 'none');
-    $('.filters_title').css('height', '33px');
+    $('#discover_filter').css('display', 'none');
+    $('#shopup_filter').css('display', 'block');
 });
 
 
 
 cats = function(subcat_id = '', parent_id = '', isSpecial = '', page_name = '') {
-    $('#discover_filter img').css('display', 'none');
-    $('#shopup_filter img').css('display', 'none');
+    $('#discover_filter').css('display', 'none');
+    $('#shopup_filter').css('display', 'block');
+    $('#pills-postup-tab').css('display', 'none');
     $('.loader_overlay').css('display', 'block');
-    $('.filters_title').css('height', '33px');
     localStorage.setItem('SubCategoryId', subcat_id);
 
     if (parent_id == '') {
@@ -301,7 +301,6 @@ loadProducts = function(catid = '', p_id = '', isSpecial = '', page_name = '', h
                               </div>
                               `;
                 }
-                console.log(view);
                 $(".home-product").empty();
                 $(".home-product").html(view);
                 $(".products").css('display', 'block');
@@ -674,6 +673,7 @@ sideCats = function(subcat_id = '', parent_id = '') {
         dataType: 'json',
         data: {
             nav: navbar,
+            page_name: 'store',
 
         },
         success: function(data) {
@@ -757,7 +757,7 @@ filterNav = function(type) {
         dataType: 'json',
         data: {
             nav: type,
-
+            page_name: 'store',
         },
         success: function(data) {
             if (data.subcats != null) {
@@ -793,6 +793,7 @@ if (wdith < 575) {
     $('.product-home').css('max-width', wdith);
     $('.banner-block').css('max-width', wdith);
     $('.product-list-box').css('max-width', wdith - 10);
+    $('.main-category-block').css('max-width', wdith - 10);
     $('.cats_js').css('max-width', wdith - 10);
     $('.cats_js').css('overflow-x', 'auto');
     $('.slider-blocks').css('height', '');
@@ -1036,3 +1037,18 @@ function copyTextToClipboard(element) {
 }
 
 $('.posts').multiSelect();
+
+// $('body').append('<div class="loader_overlay"><div class="loading">Loading&#8230;</div></div>');
+// $(document).ready(function() {
+//     setTimeout(removeLoader, 200); //wait for page load PLUS two seconds.
+// });
+
+// function removeLoader() {
+//     $(".loader_overlay").fadeOut(50000, function() {
+//         // fadeOut complete. Remove the loading div
+//         $(".loader_overlay").remove(); //makes page more lightweight 
+//     });
+// }
+$(document).ready(function() {
+    $('.loader_overlay').css('display', 'none');
+});

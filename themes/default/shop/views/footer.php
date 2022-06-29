@@ -573,6 +573,16 @@ $('.posts').multiSelect({
         console.log('ddd');
         $(this).toggleClass("open");
     })
+
+    $(document).ready(function() {
+   // PAGE IS FULLY LOADED  
+   // FADE OUT YOUR OVERLAYING DIV
+   $('.loader_overlay').fadeOut();
+});
+// $('#UtagUpCat').change(function() {
+//     var UtagUpCat = $('#UtagUpCat').data('searchtext');
+//     UtagUpCat =  "<?=$this->session->set_userdata('UtagUpCat' , UtagUpCat)?>"
+// });
 </script>
 </body>
 </html>

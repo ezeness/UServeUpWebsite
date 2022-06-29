@@ -23,7 +23,7 @@ class Main extends MY_Shop_Controller
             $this->data['datas'][$key] = json_decode(json_encode($value->Details), true);
         }
         foreach ($navBar as $key => $value) {
-            $this->data['discovernavbar'][$key] = json_decode(json_encode($value), true);
+            $this->data['navbar'][$key] = json_decode(json_encode($value), true);
         }
         //////////////////////////////Store Products//////////////////////////////////////
         $storeproducturl = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=store&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover';
@@ -33,10 +33,7 @@ class Main extends MY_Shop_Controller
         foreach ($storeproducts as $key => $value) {
             $this->data['shop_up'][$key] = json_decode(json_encode($value->Details), true);
         }
-        $storenavbar = $storeproduct_json_decoded_value->PostTypes;
-        foreach ($storenavbar as $key => $value) {
-            $this->data['storenavbar'][$key] = json_decode(json_encode($value), true);
-        }
+
         
 
         //////////////////////////////////Categories////////////////////////////////
@@ -347,7 +344,7 @@ class Main extends MY_Shop_Controller
             $main_parent = '';
         }
         if(empty($postTypes)){
-            $postTypes = 'callup,bookup,shopup';
+            // $postTypes = 'callup,bookup,shopup';
         }
         $page_name =  $this->input->get("page_name");
         if($postTypes == 'postup'){

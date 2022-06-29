@@ -55,8 +55,7 @@ $uri =  $this->uri->segment(1);
 </style>
 </head>
   <body>
-    <div class="overlay show"></div>
-    <div class="loader_overlay" style="display:none">
+    <div class="loader_overlay">
         <div class="loading">Loading&#8230;</div>
     </div>
         <header class="header" id="home">
@@ -182,32 +181,14 @@ $uri =  $this->uri->segment(1);
                                     <ul class="nav nav-tabs Navbar_Tabss discover_navbar">
 
                                     <?php
-                                        if (isset($discovernavbar)) {
-                                            foreach ($discovernavbar as $key) {
+                                        if (isset($navbar)) {
+                                            foreach ($navbar as $key) {
                                                 ?>
                                         <!-- <li class="nav-item">
                                             <a style="cursor: pointer;" 
                                             id="pills-<?=$key['Type']?>-tab" data-toggle="pill" href="#pills-<?=$key['Type']?>" role="tab" aria-controls="pills-<?=$key['Type']?>" aria-selected="true"
                                             class="nav-link <?php echo $filter == $key['Type'] ? 'active' : ''; ?> " data-type="<?=$key['Type']; ?>"><?=$key['Title']; ?></a>
                                         </li> -->
-                                        <li class="nav-item">
-                                            <a style="cursor: pointer;" 
-                                            id="pills-<?=$key['Type']?>-tab" data-toggle="pill" href="#pills-<?=$key['Type']?>" role="tab" aria-controls="pills-<?=$key['Type']?>" aria-selected="true"
-                                            class="nav-link navbar_type <?php echo $filter == $key['Type'] ? 'active' : ''; ?> " data-type="<?=$key['Type']; ?>"><?=$key['Title']; ?></a>
-                                        </li>
-
-                                        <?php
-                                            }
-                                        }
-                                    ?>
-                                    </ul>
-
-                                    <ul class="nav nav-tabs Navbar_Tabss store_navbar" style="display:none">
-
-                                    <?php
-                                        if (isset($storenavbar)) {
-                                            foreach ($storenavbar as $key) {
-                                                ?>
                                         <li class="nav-item">
                                             <a style="cursor: pointer;" 
                                             id="pills-<?=$key['Type']?>-tab" data-toggle="pill" href="#pills-<?=$key['Type']?>" role="tab" aria-controls="pills-<?=$key['Type']?>" aria-selected="true"
@@ -239,15 +220,26 @@ $uri =  $this->uri->segment(1);
                             <div class="side-top">
                                 <div class="set-top">
                                     <div class="tile-pro">
-                                        <p> <?=$utagUpCCategory->UTagcategoryFirstName?> <?=$utagUpCCategory->UTagcategoryMiddleName?> <?=$utagUpCCategory->UTagcategoryLastName?> <i class="fas fa-chevron-down"></i></p>
+                                        <select class="form-control" id="UtagUpCat">
+                                            <?php 
+                                                if(isset($allUtagUpCats)){
+                                                    foreach ($allUtagUpCats->UTagupcategories as $UTagup) {
+                                                      ?>
+                                                      <option data-searchtext="<?=$UTagup->UTagcategorySlug?>"  value="<?=$UTagup->Id?>" <?=$utagUpCCategory->Id == $UTagup->Id ? 'selected' : ''?>><?=$UTagup->UTagcategoryFirstName.' '.$UTagup->UTagcategoryMiddleName.' '.$UTagup->UTagcategoryLastName?></option>
+                                                      <?php 
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                        <!-- <p> <?=$utagUpCCategory->UTagcategoryFirstName?> <?=$utagUpCCategory->UTagcategoryMiddleName?> <?=$utagUpCCategory->UTagcategoryLastName?> <i class="fas fa-chevron-down"></i></p> -->
                                     </div>
                                     <div class="ser">
-                                        <form action="">
-                                            <input type="text" class="searchTerm" placeholder="Search">
+                                        <!-- <form action=""> -->
+                                            <!-- <input type="text" class="searchTerm" placeholder="Search"> -->
                                             <!-- <button type="submit" class="searchButton">
                                                 <img src="<?= $assets; ?>images/Icons/search-icon grey1.png" alt="" class="img-fluid">
                                             </button> -->
-                                        </form>
+                                        <!-- </form> -->
                                     </div>
                                 </div>
                                 <div class="fil">
@@ -261,7 +253,7 @@ $uri =  $this->uri->segment(1);
                                                  if (isset($navbar)) {
                                                      foreach ($navbar as $key) {
                                                          ?>
-                                                <li class="nav-item" >
+                                                <li class="nav-item" <?=$key['Type'] == 'postup' ? "style='display:none'" : ''?> >
                                                     <a id="<?=$key['Type']?>" class="nav-link back_link"  onclick="filterNav('<?=$key['Type']?>')" href="#"><?=$key['Title']; ?></a>
                                                 </li>
                                                 <?php
