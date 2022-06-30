@@ -34,25 +34,15 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="footer-top-center">
-                            <h4>About</h4>
+                            <h4>Usefull Links</h4>
                             <ul>
                                 <li><a href="#">Contact Us</a></li>
                                 <li><a href="#">About Us</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Press</a></li>
+                                <li><a href="<?=base_url('privacypolicy')?>">Privacy</a></li>
                                 <li><a href="#">Corporate Information</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="footer-top-center">
-                            <h4>Policy</h4>
-                            <ul>
                                 <li><a href="#">Return Policy</a></li>
                                 <li><a href="#">Terms Of Use</a></li>
-                                <li><a href="#">Security</a></li>
-                                <li><a href="#">Privacy</a></li>
-                                <li><a href="#">Sitemap</a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -77,7 +67,7 @@
                     <ul>
                         <li><a href="#">Contact Us</a></li>
                         <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="<?=base_url('privacypolicy')?>">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -581,7 +571,7 @@ $('.posts').multiSelect({
 });
 // $('#UtagUpCat').change(function() {
 //     var UtagUpCat = $('#UtagUpCat').data('searchtext');
-//     UtagUpCat =  "<?=$this->session->set_userdata('UtagUpCat' , UtagUpCat)?>"
+//     UtagUpCat =  ""
 // });
 </script>
 </body>

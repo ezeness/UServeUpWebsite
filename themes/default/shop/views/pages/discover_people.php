@@ -2,7 +2,7 @@
 
 
 <style>
-.header-bottom-block{
+.header-bottom{
     display:none !important;
 }
 .product-home .product-box {
@@ -70,12 +70,10 @@
         font-weight: 300;
       }
 </style>    
-        <section style="margin-top: 2%;">
+        <section class="store_top">
             <div class="product-list">
-                <div class="container">
                     <div class="product-block single-block">
                         <div class="row">
-                            <div class="col-sm-7">
                                 <div class="write-up">
                                     <!-- <div class="write-up-img">
                                         <img src="assets/images/Banners/download.png" alt="" class="img-fluid">
@@ -182,9 +180,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                                                                    </div>
         </section>
 
         

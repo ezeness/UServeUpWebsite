@@ -1,9 +1,12 @@
-html,
+html {
+    height: 100%;
+    background: #fafafa;
+}
+
 body {
     height: 100%;
     background: #fafafa;
     width: 1024px;
-    ;
 }
 
 html {
@@ -26,9 +29,9 @@ body {
 #discover_filter img,
 #shopup_filter img,
 .filters_title span img {
-    height: 15px;
+    height: 18px;
     filter: opacity(0.6);
-    margin-bottom: 3px;
+    margin-bottom: 5px;
 }
 
 .index_top {
@@ -117,6 +120,25 @@ body {
     .sidenav .closebtn {
         left: 345px;
     }
+    form#header_searchmobile {
+        display: block !important;
+    }
+    .sidenav .closebtn {
+        left: 340px !important;
+    }
+    .banner-titile {
+        max-width: 390px;
+    }
+    .user-name {
+        padding-left: 17px !important;
+    }
+    .store_top {
+        margin-top: 20% !important;
+    }
+}
+
+.store_top {
+    margin-top: 6%;
 }
 
 p {
@@ -464,9 +486,23 @@ form#header_search {
     z-index: 1;
 }
 
+form#header_searchmobile {
+    background-color: #fff;
+    padding: 5px 0px 5px 10px;
+    border-radius: 6px;
+    /* border: 1px solid #ddd; */
+    margin-right: 0;
+    width: 100px;
+    position: absolute;
+    z-index: 1;
+    display: none;
+    margin-left: 50%;
+}
+
 form#header_search:hover {
     /* width: 400px; */
     overflow: hidden;
+    margin-left: 0;
 }
 
 .header-search {
@@ -475,6 +511,20 @@ form#header_search:hover {
     top: -20px;
     float: left;
     /* left: -30px; */
+}
+
+.header-searchmobile {
+    position: relative;
+    width: 100px;
+    top: -18px;
+    /* float: left; */
+    left: 67px;
+}
+
+form#header_searchmobile:hover {
+    width: 175px;
+    overflow: hidden;
+    left: -120px;
 }
 
 a.home-icon img {
@@ -486,6 +536,17 @@ form#header_search input[type="text"] {
     border: 0;
     width: 88%;
     outline: 0;
+}
+
+form#header_searchmobile input[type="text"] {
+    border: 0;
+    width: 65%;
+    outline: 0;
+    font-size: 11px;
+}
+
+form#header_searchmobile input[type="text"]:hover {
+    width: 80%;
 }
 
 .header-top-icon span img {
@@ -502,6 +563,13 @@ form#header_search button {
     background-color: transparent;
     color: #555555;
     font-size: 18px;
+}
+
+form#header_searchmobile button {
+    border: 0;
+    background-color: transparent;
+    color: #555555;
+    font-size: 11px;
 }
 
 .c-icon img {
@@ -2502,7 +2570,7 @@ div#myWallSidenav {
 }
 
 .footer-top {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .footer-top-right h4 {
@@ -2678,7 +2746,7 @@ img.img-fluid.sto-icon {
     right: 0px !important;
     padding: 20px 20px;
     min-width: 360px;
-    left: -334px !important;
+    left: -334px;
     box-shadow: 2px 2px 8px 1px rgb(0 0 0 / 50%);
     top: 26px !important;
     border-radius: 15px;
@@ -3443,7 +3511,8 @@ span.single-product-title {
 
 .product-call>a,
 .product-call>button {
-    background-color: #1492e6;
+    /* background-color: #1492e6; */
+    background-color: #C6C6C6;
     color: #fff !important;
     font-size: 12px;
     padding: 3px 12px;
@@ -6294,7 +6363,7 @@ label.upload__btn p:hover {
 }
 
 .sort-list {
-    margin-top: 20px;
+    /* margin-top: 20px; */
     float: left;
     width: 100%;
 }
@@ -7643,6 +7712,7 @@ i#locator-button {
     }
     .service-24 {
         display: block;
+        z-index: 99;
     }
     .product-home .product-box {
         width: 100%;
@@ -7682,13 +7752,13 @@ i#locator-button {
         display: none;
     }
     .header-top-block {
-        padding: 10px 5px;
+        padding: 15px 5px;
         display: block;
         justify-content: space-between;
         align-items: center;
         float: left;
         width: 100%;
-        height: 50px;
+        height: 60px;
     }
     .header-top-left {
         display: flex;
@@ -7699,7 +7769,8 @@ i#locator-button {
         height: 50px;
     }
     .service-24 img {
-        width: 65px;
+        height: 23px;
+        background-color: white;
     }
     .header-top {
         display: block;
@@ -7804,6 +7875,7 @@ i#locator-button {
     }
     .banner-left h6 {
         margin: 0;
+        font-size: 12px;
     }
     .banner-call ul li {
         list-style: none;
@@ -7935,6 +8007,7 @@ i#locator-button {
     .footer-block .footer-right {
         width: 100%;
         order: 1;
+        padding-left: 2%;
     }
     .footer-top .col-sm-3:nth-child(2) {
         /* width: 50%; */
@@ -7963,7 +8036,7 @@ i#locator-button {
         float: left;
         /* background: #0e9749 0% 0% no-repeat padding-box; */
         margin-top: 0;
-        padding: 30px 0;
+        padding: 30px 10px;
         margin-bottom: 45px;
     }
     .footer-right ul li {
@@ -8141,7 +8214,7 @@ i#locator-button {
         width: unset !important;
     }
     .write-up {
-        max-width: 92%;
+        max-width: 64%;
         /* padding: 0 10px; */
     }
     .same-tab li.nav-item a {
@@ -8260,6 +8333,13 @@ i#locator-button {
     }
     .cart-section .container {
         padding: 0;
+    }
+    .logo h4 {
+        line-height: 17px;
+        font-size: 21px;
+    }
+    .logo_text h4 sub {
+        font-size: 19px !important;
     }
 }
 
@@ -9005,7 +9085,7 @@ label {
     background: #F3F3F3 0% 0% no-repeat padding-box;
     font-size: 18px;
     font-weight: 500;
-    padding: 6px;
+    padding: 3px 9px;
     height: 38px;
 }
 

@@ -131,15 +131,17 @@ $(".sortings").click(function() {
     filtertype = $(this).data("filtertype");
     localStorage.setItem('sortings', sortings);
     cats(localStorage.getItem('SubCategoryId'), localStorage.getItem('MainCategoryId'), '', filtertype);
-    $('#discover_filter').css('display', 'none');
-    $('#shopup_filter').css('display', 'block');
+    // $('#discover_filter').css('display', 'none');
+    // $('#shopup_filter').css('display', 'block');
+    $('.sotingmodal').modal('toggle');
 });
 
 
 
+
 cats = function(subcat_id = '', parent_id = '', isSpecial = '', page_name = '') {
-    $('#discover_filter').css('display', 'none');
-    $('#shopup_filter').css('display', 'block');
+    // $('#discover_filter').css('display', 'none');
+    // $('#shopup_filter').css('display', 'block');
     $('#pills-postup-tab').css('display', 'none');
     $('.loader_overlay').css('display', 'block');
     localStorage.setItem('SubCategoryId', subcat_id);
@@ -788,10 +790,10 @@ var wdith = $(window).width();
 
 $('.slider-blocks').css('height', '250px');
 if (wdith < 575) {
-    $('.header-benner').css('width', wdith);
-    $('.filters_title').css('width', wdith);
-    $('.product-home').css('max-width', wdith);
-    $('.banner-block').css('max-width', wdith);
+    $('.header-benner').css('width', wdith - 10);
+    $('.filters_title').css('width', wdith - 10);
+    $('.product-home').css('max-width', wdith - 10);
+    $('.banner-block').css('max-width', wdith - 10);
     $('.product-list-box').css('max-width', wdith - 10);
     $('.main-category-block').css('max-width', wdith - 10);
     $('.cats_js').css('max-width', wdith - 10);
@@ -799,7 +801,8 @@ if (wdith < 575) {
     $('.slider-blocks').css('height', '');
     $('.video_css').css('width', '130');
     $('.video_css').css('height', '150');
-    $('.cats_js_data').removeAttr('data-aos')
+    $('.cats_js_data').removeAttr('data-aos');
+    $('.write-up').css('max-width', wdith - 10);
 }
 setTimeout(function() {
     $('div.spanner').removeClass('show');
@@ -1037,18 +1040,42 @@ function copyTextToClipboard(element) {
 }
 
 $('.posts').multiSelect();
-
-// $('body').append('<div class="loader_overlay"><div class="loading">Loading&#8230;</div></div>');
-// $(document).ready(function() {
-//     setTimeout(removeLoader, 200); //wait for page load PLUS two seconds.
-// });
-
-// function removeLoader() {
-//     $(".loader_overlay").fadeOut(50000, function() {
-//         // fadeOut complete. Remove the loading div
-//         $(".loader_overlay").remove(); //makes page more lightweight 
-//     });
-// }
 $(document).ready(function() {
     $('.loader_overlay').css('display', 'none');
+});
+
+$("#discover_filter").click(function() {
+    // $('#shop_up').slideDown("slow", function() {});
+    $('#shopup_filter').css('display', 'contents');
+    $('#discover_filter').css('display', 'none');
+    $('#discoverSorting').css('display', 'none');
+    $('#storeSorting').css('display', 'contents');
+    // $('#discover').slideUp("slow", function() {});
+    $('.cats_js').slideDown("slow", function() {});
+    $('.hash_tags').slideUp("slow", function() {});
+    $('#pills-postup-tab').css('display', 'none');
+    $('.navbar_type').removeClass("active");
+    $('.product-call a').css('background-color', '#1492e6');
+    $('.product-call a').html('SHOP UP');
+
+});
+$("#shopup_filter").click(function() {
+    // $('#shop_up').slideUp("slow", function() {});
+    $('#storeSorting').css('display', 'block');
+    // $('.product-home').slideUp("slow" , function(){});
+    $('#shopup_filter').css('display', 'none');
+    $('#discover_filter').css('display', 'contents');
+    // $('#discover').slideDown("slow", function() {});
+    $('#discoverSorting').css('display', 'contents');
+    $('#storeSorting').css('display', 'none');
+
+    $('.hash_tags').slideDown("slow", function() {});
+    $('.cats_js').slideUp("slow", function() {});
+    $('#pills-postup-tab').css('display', 'block');
+    $('.navbar_type').removeClass("active");
+    $('.product-call a').css('background-color', '#C6C6C6');
+    $('.product-call a').html('POST UP');
+
+
+
 });

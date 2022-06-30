@@ -70,11 +70,17 @@ $uri =  $this->uri->segment(1);
                                     <!-- <img src="<?= $assets; ?>images/logo.png" alt="" class="img-fluid"> -->
                                 </a>
                             </div>
-
+                            <div class="header-searchmobile">
+                                <?= form_open('search', 'id="header_searchmobile"'); ?> 
+                                    <input type="text" placeholder="Search" name="search" required>
+                                    <button type="submit"><i class="fa fa-search"></i></button>
+                                </form>
+                            </div>
                             <div class="service-24">
                                 <a href="<?=base_url('twentyseven')?>">
                                 <img src="<?= $assets; ?>images/Icons/24-7-png-8.png" alt=""></a>
                             </div>
+                            
                         </div>
                         <div class="med">
                             <div class="header-search">

@@ -38,7 +38,7 @@
                                     <li>
                                         <div class="product-call">
                                             <a href="#">
-                                                SHOP UP
+                                                POST UP
                                             </a>
                                             <!-- <div class="product-sms-call">
                                                         <a href="tel:1234567891">call</a>
@@ -61,9 +61,9 @@
                 <div class="filters_title">
                 <span id="discover_filter" onclick="cats('','','','store')"><img src="<?=$assets;?>images/grid.png"> <span>DISCOVER</span></span>
                 <span id="shopup_filter" style="display:none" onclick="cats('','','','discover')"><img src="<?=$assets;?>images/details_view_icon.png"> <span>SHOP</span></span>
-                <span href="#" data-toggle="modal" data-target="#discoverModal" id="discoverSorting"><img src="<?= $assets; ?>images/sort.png" style="height:25px;float: right;"></span>
-                <span href="#" data-toggle="modal" data-target="#storeModal" id="storeSorting" style="display:none"><img src="<?= $assets; ?>images/sort.png" style="height:25px;float: right;"></span>
-                <span onclick="openNav()" style="cursor: pointer;"><img src="<?= $assets; ?>images/categoryfiltericon.png" style="height:25px;float: right;margin-right:4px;"></span>
+                <span href="#" data-toggle="modal" data-target="#discoverModal" id="discoverSorting"><img src="<?= $assets; ?>images/sort.png" style="height:28px;float: right;"></span>
+                <span href="#" data-toggle="modal" data-target="#storeModal" id="storeSorting" style="display:none"><img src="<?= $assets; ?>images/sort.png" style="height:28px;float: right;"></span>
+                <span onclick="openNav()" style="cursor: pointer;"><img src="<?= $assets; ?>images/categoryfiltericon.png" style="height:28px;float: right;margin-right:10px;"></span>
             </div>
             <?php if (isset($catagories)) { 
                                     ?>
@@ -274,43 +274,10 @@
    </div>
 
 <div>
-<script>
-$("#discover_filter").click(function(){
-    $('#shop_up').slideDown("slow", function() {});
-    $('#shopup_filter').css('display' , 'contents');
-    $('#discover_filter').css('display' , 'none');
-    $('#discoverSorting').css('display' , 'none');
-    $('#storeSorting').css('display' , 'contents');
-    $('#discover').slideUp("slow", function() {});
-    $('.cats_js').slideDown("slow", function() {});
-    $('.hash_tags').slideUp("slow", function() {});
-    $('#pills-postup-tab').css('display' , 'none');
-    $('.navbar_type').removeClass("active");
-
-});
-$("#shopup_filter").click(function(){
-    $('#shop_up').slideUp("slow", function() {});
-    $('#storeSorting').css('display' , 'block');
-    // $('.product-home').slideUp("slow" , function(){});
-    $('#shopup_filter').css('display' , 'none');
-    $('#discover_filter').css('display' , 'contents');
-    $('#discover').slideDown("slow", function() {});
-    $('#discoverSorting').css('display' , 'contents');
-    $('#storeSorting').css('display' , 'none');
-
-    $('.hash_tags').slideDown("slow", function() {});
-    $('.cats_js').slideUp("slow", function() {});
-    $('#pills-postup-tab').css('display' , 'block');
-    $('.navbar_type').removeClass("active");
-
-
-
-});
-</script>
     </div>
 
 
-    <div class="modal fade" id="discoverModal" tabindex="-1" role="dialog" aria-labelledby="discoverModal" aria-hidden="true">
+    <div class="modal fade sotingmodal" id="discoverModal" tabindex="-1" role="dialog" aria-labelledby="discoverModal" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
@@ -336,7 +303,7 @@ $("#shopup_filter").click(function(){
   </div>
 </div>
 
-<div class="modal fade" id="storeModal" tabindex="-1" role="dialog" aria-labelledby="storeModal" aria-hidden="true">
+<div class="modal fade sotingmodal" id="storeModal" tabindex="-1" role="dialog" aria-labelledby="storeModal" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">

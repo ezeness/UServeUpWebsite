@@ -24,7 +24,7 @@
         <section>
             
             <div class="product-list">
-                <div class="container remove_width" style="background:white;width: 1024px">
+                <div class="remove_width" style="background:white;width: 1024px">
                     <div class="product-block single-block">
                         <div class="single-productss">
                             <div class="row">

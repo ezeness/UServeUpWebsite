@@ -140,7 +140,7 @@ class Main extends MY_Shop_Controller
     public function privacypolicy()
     {
         $id = $this->session->userdata('UserId');
-        $array['filter'] = '';
+        $this->data['page_title'] = 'Privacy Policy';
         $this->page_construct('pages/privacypolicy', $this->data);
     }
     public function twentyseven()
@@ -163,6 +163,7 @@ class Main extends MY_Shop_Controller
         foreach ($twentyfour as $key => $value) {
             $this->data['twentyfour'][$key] = json_decode(json_encode($value), true);
         }
+        $this->data['page_title'] = 'Twentry Four Seven';
         $this->page_construct('pages/twentyseven', $this->data);
 
     }
