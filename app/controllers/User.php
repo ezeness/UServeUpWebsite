@@ -856,7 +856,11 @@ class User extends MY_Shop_Controller
         }
 
     }
-
+    public function setUtagCat()
+    {
+        $this->db->update('sma_utagupcat' , array('UtagUpCatId'=>$this->input->get('UtagUpCatId') , 'UtagUpCatName'=>$this->input->get('UtagUpCatName')) , array('id'=>1));
+        echo json_encode(array("success"=>1));
+    }
     public function addPlaylist()
     {
         $array = [];

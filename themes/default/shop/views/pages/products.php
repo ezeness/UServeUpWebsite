@@ -49,8 +49,7 @@
                                                                 <ul class="dropdown_copy">
                                                                     <li><img src="<?= $assets; ?>images/New Icon/store.svg" class="img-fluid sto-icon" alt=""> Add to Favorite store</li>
                                                                     <li><img src="<?= $assets; ?>images/New Icon/ic_user_add_multiple.svg" class="img-fluid sto-icon" alt="" style="height: 13px;margin-right: 8px;"> Follow Profile</li>
-                                                                    <li><img src="<?= $assets; ?>images/New Icon/ic_sharei.svg" class="img-fluid sto-icon" alt=""> Share Profile</li>
-                                                                    <li><img src="<?= $assets; ?>images/New Icon/icons8-qr-code-64.png" class="img-fluid sto-icon" alt=""> Scan Profile</li>
+                                                                    <li onclick="copyTextToClipboard('<?=$data['DeepLinkUrl']?>')"><img src="<?= $assets; ?>images/New Icon/ic_sharei.svg" class="img-fluid sto-icon" alt=""> Share Profile</li>
                                                                     <li onclick="copyToClipboard('#ProfileDeepLinkUrl<?=$data['PostId']?>')"><img src="<?= $assets; ?>images/New Icon/ic_copy.svg" class="img-fluid sto-icon" alt="" > Copy Profile Url</li>
                                                                     <li><img src="<?= $assets; ?>images/New Icon/ic_block_account.svg" class="img-fluid sto-icon" alt=""> Block Profile</li>
                                                                     <li><img src="<?= $assets; ?>images/New Icon/ic_about_this_account.svg" class="img-fluid sto-icon" alt=""> About This Account</li>
@@ -171,8 +170,7 @@
                                                             </button>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                 <ul class="dropdown_copy">
-                                                                <li><img src="<?= $assets; ?>images/New Icon/ic_sharei.svg" class="img-fluid sto-icon" alt=""> Share Post</li>
-                                                                <li><img src="<?= $assets; ?>images/New Icon/icons8-qr-code-64.png" class="img-fluid sto-icon" alt=""> Scan Post</li>
+                                                                <li  onclick="copyTextToClipboard('<?=$data['DeepLinkUrl']?>')"><img src="<?= $assets; ?>images/New Icon/ic_sharei.svg" class="img-fluid sto-icon" alt=""> Share Post</li>
                                                                 <li  onclick="copyToClipboard('#PostURL<?=$data['PostId']?>')"><img src="<?= $assets; ?>images/New Icon/ic_copy.svg" class="img-fluid sto-icon" alt=""> Copy Post URL</li>
                                                                 <li  onclick="copyToClipboard('#PostID<?=$data['PostId']?>')"><img src="<?= $assets; ?>images/New Icon/ic_copy.svg" class="img-fluid sto-icon" alt=""> Copy Post ID</li>
                                                                 </ul>

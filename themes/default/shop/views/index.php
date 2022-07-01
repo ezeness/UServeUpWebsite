@@ -36,8 +36,8 @@
                             <div class="banner-call">
                                 <ul>
                                     <li>
-                                        <div class="product-call">
-                                            <a href="#">
+                                        <div class="product-call btn_shop_post">
+                                            <a href="#" style="background-color:#C6C6C6">
                                                 POST UP
                                             </a>
                                             <!-- <div class="product-sms-call">

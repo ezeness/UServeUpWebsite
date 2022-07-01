@@ -175,7 +175,7 @@
                 </li>
                 <?php } ?>
                 <li>
-                    <a href="#">
+                    <a href="<?=base_url('wall')?>">
                         <div class="menu-imgs">
                             <img src="<?= $assets; ?>images/hiring.png" alt="">
                         </div>
@@ -191,7 +191,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?=base_url('nearbystores')?>">
+                    <a href="<?=base_url('twentyseven')?>">
                         <div class="menu-imgs" >
                                 <img src="<?= $assets; ?>images/place.png" alt="" style="margin-top: 5px; filter: invert(40%);">
                         </div>
@@ -291,10 +291,17 @@
                 <div class="profile_pic float_left">
                     <img src="<?= $assets; ?>images/profile-user.png" alt="icon">
                 </div>
+                <?php if($loggedIn){ ?>
+                <div class="user_details float_left">
+                       <a href="<?php echo site_url('/profile/'.$loggedInUser->Id); ?>"> <p> Hello</p>
+                        <p> <?=$loggedInUser ? $loggedInUser->Name : 'To '.$utagUpCCategory->UTagcategoryFirstName.' '.$utagUpCCategory->UTagcategoryMiddleName.' '.$utagUpCCategory->UTagcategoryLastName?></a></p>
+                </div>
+                <?php } else{?>
                 <div class="user_details float_left">
                         <p><a href="#"> Hello</a></p>
                         <p><a href="#"> <?=$loggedInUser ? $loggedInUser->Name : 'To '.$utagUpCCategory->UTagcategoryFirstName.' '.$utagUpCCategory->UTagcategoryMiddleName.' '.$utagUpCCategory->UTagcategoryLastName?></a></p>
                 </div>
+                <?php } ?>
             </div>
             <div class="profile-view-right">
                 <p><a href="<?=base_url(); ?>"> <img src="<?= $assets; ?>images/messenger.png" alt=""></a></p>
@@ -569,10 +576,7 @@ $('.posts').multiSelect({
    // FADE OUT YOUR OVERLAYING DIV
    $('.loader_overlay').fadeOut();
 });
-// $('#UtagUpCat').change(function() {
-//     var UtagUpCat = $('#UtagUpCat').data('searchtext');
-//     UtagUpCat =  ""
-// });
+
 </script>
 </body>
 </html>

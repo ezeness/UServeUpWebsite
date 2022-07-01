@@ -1055,8 +1055,8 @@ $("#discover_filter").click(function() {
     $('.hash_tags').slideUp("slow", function() {});
     $('#pills-postup-tab').css('display', 'none');
     $('.navbar_type').removeClass("active");
-    $('.product-call a').css('background-color', '#1492e6');
-    $('.product-call a').html('SHOP UP');
+    $('.btn_shop_post a').css('background-color', '#1492e6');
+    $('.btn_shop_post a').html('SHOP UP');
 
 });
 $("#shopup_filter").click(function() {
@@ -1073,9 +1073,27 @@ $("#shopup_filter").click(function() {
     $('.cats_js').slideUp("slow", function() {});
     $('#pills-postup-tab').css('display', 'block');
     $('.navbar_type').removeClass("active");
-    $('.product-call a').css('background-color', '#C6C6C6');
-    $('.product-call a').html('POST UP');
+    $('.btn_shop_post a').css('background-color', '#C6C6C6');
+    $('.btn_shop_post a').html('POST UP');
 
 
+
+});
+
+$('#UtagUpCat').change(function() {
+
+    var UtagUpCatId = $(this).val();
+    var UtagUpCatName = $(this).find(':selected').data("slug");
+    $.ajax({
+        url: base_url + 'user/setUtagCat',
+        type: 'GET',
+        dataType: 'json',
+        data: { UtagUpCatId: UtagUpCatId, UtagUpCatName: UtagUpCatName },
+        success: function(data) {
+            if (data.success == 1) {
+                location.reload();
+            }
+        }
+    });
 
 });

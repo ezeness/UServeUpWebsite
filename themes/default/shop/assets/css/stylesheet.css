@@ -31,7 +31,7 @@ body {
 .filters_title span img {
     height: 18px;
     filter: opacity(0.6);
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
 }
 
 .index_top {
@@ -3511,8 +3511,8 @@ span.single-product-title {
 
 .product-call>a,
 .product-call>button {
-    /* background-color: #1492e6; */
-    background-color: #C6C6C6;
+    background-color: #1492e6;
+    /* background-color: #C6C6C6; */
     color: #fff !important;
     font-size: 12px;
     padding: 3px 12px;
@@ -4215,7 +4215,7 @@ textarea#myInput {
 }
 
 .write-up-block>ul#pills-tab li {
-    max-width: 110px;
+    max-width: 90px;
     width: 100%;
     margin-bottom: 0;
     height: 30px;
@@ -4234,7 +4234,7 @@ textarea#myInput {
     border-radius: 0;
     color: #000;
     text-align: center;
-    width: 110px !important;
+    width: 80px !important;
     text-align: center;
     margin: auto;
     justify-content: center;
@@ -9164,6 +9164,7 @@ audio {
     background-repeat: no-repeat;
     background-size: contain;
     width: 65px;
+    margin-left: -10px;
 }
 
 .user_back_white img:hover {

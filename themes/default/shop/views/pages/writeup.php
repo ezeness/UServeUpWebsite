@@ -88,10 +88,7 @@
                                             <li class="nav-item">
                                                 <a class="nav-link" id="pills-profile-tab"  href="<?=base_url('wall')?>">WALL</a>
                                             </li>
-                                            <li class="nav-item write-plus">
-                                                <a class="nav-link"  href="<?=$loggedInUser ? "#" : base_url('signup')?>" > <i class="fas fa-plus"></i> 
-                                                <span class="writ">WRITE UP</span></a>
-                                            </li>
+
                                         </ul>
                                         <div class="tab-content" id="pills-tabContent">
                                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">

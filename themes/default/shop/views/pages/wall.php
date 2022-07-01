@@ -172,6 +172,10 @@
                                                 <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"> 
                                                 SEEKING</a>
                                             </li>
+                                            <li class="nav-item write-plus">
+                                                <a class="nav-link"  href="<?=$loggedInUser ? "#" : base_url('signup')?>" > <i class="fas fa-plus"></i> 
+                                                </a>
+                                            </li>
                                         </ul>
                                         <div class="tab-content" id="pills-tabContent">
                                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">

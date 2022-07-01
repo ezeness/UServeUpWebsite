@@ -7,13 +7,12 @@ class MY_Shop_Controller extends CI_Controller
    
         parent::__construct();
         $this->Settings =''; 
-            
             $this->theme = 'default/shop/views/';
             $this->data['assets'] = base_url() . 'themes/default/shop/assets/';
             $this->loggedIn = $this->sma->logged_in();
             $this->data['loggedIn'] = $this->loggedIn;
-
-            $this->utagUpCCategory = $this->utagUpCCategory($searchText = 'ushipup');
+            $searchText = $this->getUtagCat() ? $this->getUtagCat()->UtagUpCatName : 'ushipup';
+            $this->utagUpCCategory = $this->utagUpCCategory($searchText);
             $this->utagUpCCategory =$this->utagUpCCategory->UTagupcategories[0];
             $this->Userdetails = $this->session->userdata('userdata');
             $new_arr[]= unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['REMOTE_ADDR']));
@@ -64,6 +63,7 @@ class MY_Shop_Controller extends CI_Controller
 
     public function utagUpCCategory($searchText = '')
     {
+        // $localutagUpCCategory = '<script>document.write(localStorage.getItem("UtagUpCat"));</script>';
         $url = 'category/utagcategories?searchtxt='.$searchText;
         $utagUpCCategory = $this->curlGetRequest($url);
         $utagUpCCategory = json_decode($utagUpCCategory);
@@ -90,6 +90,14 @@ class MY_Shop_Controller extends CI_Controller
         return $result;
         
     }
+     public function getUtagCat()
+     {
+       $q=  $this->db->select('*')
+        ->from('sma_utagupcat')
+        ->where('id' , 1)
+        ->get()->row();
+        return $q; 
+     }
 
     
 }

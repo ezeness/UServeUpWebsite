@@ -92,7 +92,7 @@
                                         <div class="tab-content" id="pills-tabContent">
                                             <div class="tab-pane fade " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                                 <div class="card-body p-md-12 map col-sm-12" style="float:left;padding: 0;">
-                                                    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                                                    <input id="pac-input" class="controls" type="hidden" placeholder="Search Box">
                                                 
                                                     <div id="map-canvas"></div>
                                                         

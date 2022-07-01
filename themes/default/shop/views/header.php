@@ -136,7 +136,7 @@ $uri =  $this->uri->segment(1);
                                                     border-radius: 50%;">
                                             <?php } ?>
                                             </a>
-                                                        </li>
+                                    </li>
 
                                     <li class="<?=$uri == 'writeup' ? 'active' : ''?>">
                                         <a href="<?=base_url('writeup')?>" > 
@@ -170,9 +170,9 @@ $uri =  $this->uri->segment(1);
                                 </div>
                             <?php } else{
                                 ?>
-                                        <p class="" style="float:right" class="dropdown-toggle" > 
-                                           <a href="<?=base_url('signup')?>"> Sign In</a>
-                                    </p> 
+                                        <div style="float:right" class="product-call" > 
+                                           <a href="<?=base_url('signup')?>"> SIGN IN</a>
+                                        </div> 
                             <?php } ?>    
                         </div>
                         </div>
@@ -210,15 +210,9 @@ $uri =  $this->uri->segment(1);
                             </div>
                         </div>
                         <div class="header-bottom-right">
-                             <?php 
-                            if($loggedIn){ 
-                                if($loggedInUser->Store->LicenseType == 'Corp' && strpos($loggedInUser->Store->PlanName , '24') !== false){
-                                ?>
-
                             <a href="<?=base_url('twentyseven')?>">                               
                             <img src="<?= $assets; ?>images/Icons/24-7 icon.png" alt="24/7" class="img-fluid">
                             </a>
-                            <?php } } ?>
                         </div>
                     </div>
                     <div id="mySidenav" class="sidenav">
@@ -231,7 +225,7 @@ $uri =  $this->uri->segment(1);
                                                 if(isset($allUtagUpCats)){
                                                     foreach ($allUtagUpCats->UTagupcategories as $UTagup) {
                                                       ?>
-                                                      <option data-searchtext="<?=$UTagup->UTagcategorySlug?>"  value="<?=$UTagup->Id?>" <?=$utagUpCCategory->Id == $UTagup->Id ? 'selected' : ''?>><?=$UTagup->UTagcategoryFirstName.' '.$UTagup->UTagcategoryMiddleName.' '.$UTagup->UTagcategoryLastName?></option>
+                                                      <option data-slug="<?=$UTagup->UTagcategorySlug?>"  value="<?=$UTagup->Id?>" <?=$utagUpCCategory->Id == $UTagup->Id ? 'selected' : ''?>><?=$UTagup->UTagcategoryFirstName.' '.$UTagup->UTagcategoryMiddleName.' '.$UTagup->UTagcategoryLastName?></option>
                                                       <?php 
                                                     }
                                                 }
