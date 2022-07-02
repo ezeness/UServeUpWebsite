@@ -139,8 +139,8 @@
                                                                    
                                                                         
                                                             </a>
-                                                            <div class="rating" style="display:none">
-                                                                <div class="ratng-block bottom-left">
+                                                            <div class="rating">
+                                                                <div class="ratng-block bottom-left" style="display:none">
                                                                     <?php if ($data['Rating'] > 0) : ?>
                                                                         <?php for ($i = 1; $i <= 5; $i++) : ?>
                                                                             <?php if ($i <= $data['Rating']) : ?>
@@ -328,3 +328,40 @@
     </div>
   </div>
 </div>
+<script>
+$("#discover_filter").click(function() {
+    // $('#shop_up').slideDown("slow", function() {});
+    $('#shopup_filter').css('display', 'contents');
+    $('#discover_filter').css('display', 'none');
+    $('#discoverSorting').css('display', 'none');
+    $('#storeSorting').css('display', 'contents');
+    // $('#discover').slideUp("slow", function() {});
+    $('.cats_js').slideDown("slow", function() {});
+    $('.hash_tags').slideUp("slow", function() {});
+    $('#pills-postup-tab').css('display', 'none');
+    $('.navbar_type').removeClass("active");
+    $('.btn_shop_post a').css('background-color', '#1492e6');
+    $('.btn_shop_post a').html('SHOP UP');
+
+});
+$("#shopup_filter").click(function() {
+    // $('#shop_up').slideUp("slow", function() {});
+    $('#storeSorting').css('display', 'block');
+    // $('.product-home').slideUp("slow" , function(){});
+    $('#shopup_filter').css('display', 'none');
+    $('#discover_filter').css('display', 'contents');
+    // $('#discover').slideDown("slow", function() {});
+    $('#discoverSorting').css('display', 'contents');
+    $('#storeSorting').css('display', 'none');
+
+    $('.hash_tags').slideDown("slow", function() {});
+    $('.cats_js').slideUp("slow", function() {});
+    $('#pills-postup-tab').css('display', 'block');
+    $('.navbar_type').removeClass("active");
+    $('.btn_shop_post a').css('background-color', '#C6C6C6');
+    $('.btn_shop_post a').html('POST UP');
+
+
+
+});
+    </script>

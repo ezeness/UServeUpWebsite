@@ -573,10 +573,10 @@ class User extends MY_Shop_Controller
         $array['navbar'] = NULL;
         $array['datas'] = NULL;
         $postTypes =  $this->input->get("nav");
+
         $page_name =  $this->input->get("page_name");
         $array['PostId'] = '';
         $productURL = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId=238&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=discover';
-
         $getProductResponce = $this->curlGetRequest($productURL);
         $product_json_decoded_value = json_decode($getProductResponce);
         $products = $product_json_decoded_value->Products;
@@ -636,7 +636,7 @@ class User extends MY_Shop_Controller
         foreach ($storeproducts as $key => $value) {
             $this->data['shop_up'][$key] = json_decode(json_encode($value->Details), true);
         }
-        $categoryURL = 'category/packages/?packageId=&page=1&utagupcategory='.$this->utagUpCCategory->Id.'&post_type=&showall=1&userId='.$id.'&showpage=discover&specialcategoryId=';
+        $categoryURL = 'category/packages/?packageId=&page=1&utagupcategory='.$this->utagUpCCategory->Id.'&post_type=&showall=1&userId='.$id.'&showpage=store&specialcategoryId=';
         $getCategoryResponce2 = $this->curlGetRequest($categoryURL);
         $catagory_json_decoded_value = json_decode($getCategoryResponce2);
         $catagories = $catagory_json_decoded_value->Categories;
@@ -691,11 +691,13 @@ class User extends MY_Shop_Controller
         if($parent_id == $main_parent){
             $main_parent = '';
         }
-        $user_id = $this->session->userdata('UserId');
+        $user_id = $this->input->get('user_id');
         $array['navbar'] = NULL;
         $array['datas'] = NULL;
         $postTypes =  $this->input->get("nav");
-
+        if(empty($postTypes)){
+            $postTypes = 'callup,bookup,shopup';
+        }
         $page_name =  $this->input->get("page_name");
         $array['PostId'] = '';
         $productURL = 'product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories='.$main_parent.'&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage='.$page_name.'&IsBanner=0&userId='.$user_id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId='.$parent_id.'&bannertype=discover';

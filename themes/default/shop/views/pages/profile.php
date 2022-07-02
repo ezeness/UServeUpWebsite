@@ -7,9 +7,9 @@ display:none;
 display:none !important;
 }
 </style>
-<section>
+<section class="index_top">
     <div class="user-profile">
-        <div class="container">
+        <div class="">
             <div class="user-profile-block" style="background-color: white;padding:10px 10px 10px 10px;">
                 <div class="profile-tab">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -24,7 +24,7 @@ display:none !important;
 
                     </ul>
                 </div>
-                <div class="tab-content" id="myTabContent">
+                <div class="tab-content profile_tab_content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"></div>
                     <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="container">
@@ -225,41 +225,7 @@ display:none !important;
                 <?php } ?>
 
             </div>
-        </div>
-
-            <div class="main-category-block" id="playlist">
-                <div class="">
-                    <ul class="nav nav-tabs slider cate-sildercall same-tab" id="myTab" role="tablist" data-aos="fade-up">
-                    <li class="nav-item ">
-                            <a class="nav-link border-radius highlight_a" data-toggle="modal" data-target="#playlist-modal">
-                                <i class="fa fa-plus-circle " aria-hidden="true" style="font-size:30px"></i>
-                                <p class="highlight_des">
-                                    <b>Playlist</b><br>
-                                    Add Playlist  
-                                </p>
-                            </a>
-                        </li>
-                        <?php 
-                            if(isset($playlist)){
-                            ?>
-                       <?php 
-                       
-                            foreach ($playlist as $key) {
-                        ?>
-                        <li class="nav-item border-radius">
-                            <a class="nav-link border-radius highlight_a" id="motord-tab" href="#"  style="height: 55px;">
-                                <img src="<?=$key['CoverImage']?>" alt="icomn">
-                                <p class="highlight_des"><b><?=$key['Title']?></b><br>
-                                    <?=$key['SubTitle']?>
-                                </p>
-                            </a>
-                        </li>
-                        <?php } ?>
-                        <?php } ?>
-                    </ul>
-                </div>
-            </div>
-         
+        </div>         
             <br>
             <div class="header-benner">
             <!-- <div class="container">
@@ -313,159 +279,230 @@ display:none !important;
                 </div>
             </div>
         </section>
-            <div class="">
+             <div class="">
                 <div class="filters_title">
-                <span id="discover_filter"><i class="fa fa-list"></i></span>
-                <span id="shopup_filter" style="display:none"><img src="<?=$assets;?>images/grid.png"></span>
-                <span ><img src="<?= $assets?>images/sort.png" style="width:25px;float: right;"></span>
-                <span onclick="openNav()" style="cursor: pointer;"><img src="<?= $assets?>images/sliders-solid.svg" style="width: 17px;float: right;margin-top:4px; margin-right:4px;"></span>
-        </div>
+                <span id="discover_filter" onclick="catsbyUser('','','','store')"><img src="<?=$assets;?>images/grid.png"> <span>DISCOVER</span></span>
+                <span id="shopup_filter" style="display:none" onclick="catsbyUser('','','','discover')"><img src="<?=$assets;?>images/details_view_icon.png"> <span>SHOP</span></span>
+                <span href="#" data-toggle="modal" data-target="#discoverModal" id="discoverSorting"><img src="<?= $assets; ?>images/sort.png" style="height:28px;float: right;"></span>
+                <span href="#" data-toggle="modal" data-target="#storeModal" id="storeSorting" style="display:none"><img src="<?= $assets; ?>images/sort.png" style="height:28px;float: right;"></span>
+                <span onclick="openNav()" style="cursor: pointer;"><img src="<?= $assets; ?>images/categoryfiltericon.png" style="height:28px;float: right;margin-right:10px;"></span>
+            </div>
         <div class="shop-profile">
 
-            <div class="tab-content tab-borda ">
-                <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post">
-                    <section>
-                        <div class="main-category">
-                            <div class="">
-                                <div class="main-category-block">
-                             
-                                    <div class="lsit-cate profileproducts">
-                                    <?php if (isset($shop_up)) { ?>
-                                    <ul class="nav nav-tabs slider cate-silders same-tab" id="myTab" role="tablist" data-aos="fade-up" style="overflow: auto;overflow-y: hidden;display:none">
-                                            <?php if ($catagories) : 
-                                                ?>
-                                                <?php foreach ($catagories as $key => $catagory) : 
-                                                $id = $catagory['Id'];
-                                                    ?>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" onclick="catsbyUser(<?= $id?>)" id="motord-tab" data-id="<?php print_r($catagory['Id']); ?>" data-toggle="tab" href="#motord" role="tab" aria-controls="motord" aria-selected="true" style="width:90px; height:120px">
-                                                            <img src="<?php print_r($catagory['CategoryImage']); ?>" alt="icomn" style="height:55px; width:55px; object-fit: cover; border-radius: 50%;">
-                                                            <p> <?php print_r($catagory['Name']); ?></p>
-                                                        </a>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
-                                        </ul>   <?php } if (isset($datas)) { ?>
-                                        <div class="tab-content" id="discover">
-                                           <div class="tab-content" id="myTabContent" style="margin-top: -13px;">
-                                             <div class="tag_title"><b>#Latest Posts</b></div>
-                                                <div class="product-home">
-                                                    <div class="home-product">
-                                                     
-                                                            <?php foreach ($datas as $data) : ?>
-                                                                <div class="product-box col-sm-4" data-aos="fade-up">
-                                                                    <div class="product-img">
-                                                                        <a href="<?php echo base_url('product/' . $data['PostId'].'#postid'.$data['PostId']); ?>">
-                                                                               
+                            <div class="tab-content tab-borda ">
+                                <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post">
+                                    <section>
+                                        <div class="main-category">
+                                            <div class="">
+                                                <div class="main-category-block">
+                                                    <div class="main-category-block" id="playlist">
+                                                        <div class="">
+                                                            <ul class="nav nav-tabs slider cate-sildercall same-tab" id="myTab" role="tablist" data-aos="fade-up">
+                                                            <li class="nav-item ">
+                                                                    <a class="nav-link border-radius highlight_a" data-toggle="modal" data-target="#playlist-modal">
+                                                                        <i class="fa fa-plus-circle " aria-hidden="true" style="font-size:30px"></i>
+                                                                        <p class="highlight_des">
+                                                                            <b>Playlist</b><br>
+                                                                            Add Playlist  
+                                                                        </p>
+                                                                    </a>
+                                                                </li>
+                                                                <?php 
+                                                                    if(isset($playlist)){
+                                                                    ?>
+                                                            <?php 
+                                                            
+                                                                    foreach ($playlist as $key) {
+                                                                ?>
+                                                                <li class="nav-item border-radius">
+                                                                    <a class="nav-link border-radius highlight_a" id="motord-tab" href="#"  style="height: 55px;">
+                                                                        <img src="<?=$key['CoverImage']?>" alt="icomn">
+                                                                        <p class="highlight_des"><b><?=$key['Title']?></b><br>
+                                                                            <?=$key['SubTitle']?>
+                                                                        </p>
+                                                                    </a>
+                                                                </li>
+                                                                <?php } ?>
+                                                                <?php } ?>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="lsit-cate profileproducts" style="display:none">
+                                                        <ul class="nav nav-tabs slider cate-silders same-tab" id="myTab" role="tablist" data-aos="fade-up" style="overflow: auto;overflow-y: hidden;display:none">
+                                                                <?php if ($catagories) : 
+                                                                    ?>
+                                                                    <?php foreach ($catagories as $key => $catagory) : 
+                                                                    $id = $catagory['Id'];
+                                                                        ?>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link" onclick="catsbyUser(<?= $id?>,'','','store')" id="motord-tab" data-id="<?php print_r($catagory['Id']); ?>" data-toggle="tab" href="#motord" role="tab" aria-controls="motord" aria-selected="true" style="width:90px; height:120px">
+                                                                                <img src="<?php print_r($catagory['CategoryImage']); ?>" alt="icomn" style="height:55px; width:55px; object-fit: cover; border-radius: 50%;">
+                                                                                <p> <?php print_r($catagory['Name']); ?></p>
+                                                                            </a>
+                                                                        </li>
+                                                                    <?php endforeach; ?>
+                                                                <?php endif; ?>
+                                                            </ul> 
+                                                     </div>
+                    <div class="tab-content tab-borda " id="discover">
+                    <?php 
+                    $i = 0;
+                    if (isset($datas)) { ?>
+                    <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post">
+                        <section>
+                            <div class="main-category">
+                                <div class="">
+                                    <div class="main-category-block">
+                                        <div class="lsit-cate">
+                                        <div class="tag_title"><b>#Latest Posts</b></div>
+                                            <div class="tab-content" id="myTabContent" style="margin-top: -13px;padding: 2px;">
+                                                <div class="tab-pane fade show active" id="motord" role="tabpanel" aria-labelledby="motord-tab">
+                                                    
+                                                    <div class="product-home">
+                                                        <div class="home-product">
+                                                    
+                                                                <?php foreach ($datas as $data) : ?>
+                                                                    <div class="product-box col-sm-4" <?=$i > 5 ? 'data-aos="fade-up"' : ''?>>
+                                                                        <div class="product-img">
+                                                                            <a href="<?php echo base_url('product/' . $data['PostId'].'#postid'.$data['PostId']); ?>">
+                                                                                
                                                                                 <img src="<?php print_r($data['images'][0]['MediaThumbPath']); ?>" alt="" class="img-fluid" style="width: 360px;height: 300px; object-fit: cover;">
-                                                                         
-                                                                        </a>
-                                                                        <div class="rating" style="display:none">
-                                                                            <div class="ratng-block bottom-left">
-                                                                                <?php if ($data['Rating'] > 0) : ?>
-                                                                                    <?php for ($i = 1; $i <= 5; $i++) : ?>
-                                                                                        <?php if ($i <= $data['Rating']) : ?>
-                                                                                            <span>
-                                                                                                <span class="fa fa-star checked pr-1"></span>
-                                                                                            </span>
-                                                                                        <?php else : ?>
-                                                                                            <span>
-                                                                                                <span class="fa fa-star pr-1"></span>
-                                                                                            </span>
-                                                                                        <?php endif; ?>
-                                                                                    <?php endfor; ?>
-                                                                                <?php endif; ?>
-                                                                            </div>
-                                                                            <div class="km-block last">
-                                                                                <span>
-                                                                                    <?php echo $data['Distance']; ?>
-                                                                                </span>
+                                                                                
+                                                                                        
+                                                                            </a>
+                                                                            <div class="rating">
+                                                                                <div class="ratng-block bottom-left" style="display:none">
+                                                                                    <?php if ($data['Rating'] > 0) : ?>
+                                                                                        <?php for ($i = 1; $i <= 5; $i++) : ?>
+                                                                                            <?php if ($i <= $data['Rating']) : ?>
+                                                                                                <span>
+                                                                                                    <span class="fa fa-star checked pr-1"></span>
+                                                                                                </span>
+                                                                                            <?php else : ?>
+                                                                                                <span>
+                                                                                                    <span class="fa fa-star pr-1"></span>
+                                                                                                </span>
+                                                                                            <?php endif; ?>
+                                                                                        <?php endfor; ?>
+                                                                                    <?php endif; ?>
+                                                                                </div>
+                                                                                <div class="km-block last">
+                                                                                    <span>
+                                                                                        <?php echo $data['Distance']; ?>
+                                                                                    </span>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            <?php endforeach; ?>
-                                                      
+                                                                <?php $i++; 
+                                                                    endforeach; ?>
+                                                        
+                                                        </div>
                                                     </div>
                                                 </div>
+
                                             </div>
-                                          
                                         </div>
-                                        <?php } ?>
                                     </div>
-                                    <?php if (isset($shop_up)) : ?>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <?php } else{ ?>
+                                                    
+                    <p class="no_posts" style="text-align:center"><img src="<?=$assets?>images/empty-box.png" alt="No Post" style="height: 200px;padding: 10px;"><br>No Posts</p>
+                                                
+                    <?php } ?>
+                </div>
+                                  
                                     <div class="" id="shop_up" style="display:none">
+                                        <?php if (isset($shop_up)) { ?>
+                                        <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post">
                                                 <section>
-                                                    <div class="tab-content" id="myTabContent" style="margin-top: -13px;">
-                                                    <div class="tag_title"><b>#Latest Posts</b></div>
-                                                        <div class="tab-pane fade show active" id="motord" role="tabpanel" aria-labelledby="motord-tab">
-                                                            <div class="product-home">
-                                                                <div class="home-product">
-                                                                    
-                                                                        <?php foreach ($shop_up as $data) : ?>
-                                                                            <div class="product-box col-sm-4" data-aos="fade-up" style="height: 286px;">
-                                                                                <div class="product-img" style="">
-                                                                                    <a href="<?php echo base_url('product/' . $data['PostId'].'#postid'.$data['PostId']); ?>">
+                                                    <div class="main-category">
+                                                        <div class="">
+                                                            <div class="main-category-block">
+                                                                <div class="lsit-cate">
+                                                                <div class="tag_title"><b>#Latest Posts</b></div>
+                                                                    <div class="tab-content" id="myTabContent" style="margin-top: -13px;">
+                                                                        <div class="tab-pane fade show active" id="motord" role="tabpanel" aria-labelledby="motord-tab">
                                                                             
-                                                                                <img src="<?php print_r($data['images'][0]['MediaThumbPath']); ?>" alt="" class="img-fluid" style="height:275px;width: 360px; object-fit: cover;">
-                                                                            
-                                                                                </a>
-                                                                                    </div>
-                                                                                    <div class="rating">
-                                                                                        <div class="ratng-block rating-block-shop-bottom-left">
-                                                                                            <?php if ($data['Rating'] > 0) : ?>
-                                                                                                <?php for ($i = 1; $i <= 5; $i++) : ?>
-                                                                                                    <?php if ($i <= $data['Rating']) : ?>
-                                                                                                        <span>
-                                                                                                            <span class="fa fa-star checked pr-1"></span>
-                                                                                                        </span>
-                                                                                                    <?php else : ?>
-                                                                                                        <span>
-                                                                                                            <span class="fa fa-star pr-1"></span>
-                                                                                                        </span>
-                                                                                                    <?php endif; ?>
-                                                                                                <?php endfor; ?>
-                                                                                            <?php endif; ?>
-                                                                                        </div>
-                                                                                        <div class="km-block km-block-shop-last mx-0" style="position: absolute; bottom: 87px;right: 2px;">
-                                                                                            <span>
-                                                                                                <?php echo $data['Distance']; ?>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <?php foreach ($data['additionalinfo'] as $additionalinfo) : ?>
-                                                                                        <?php if ($additionalinfo['FieldName'] == 'product_offer') : ?>
-                                                                                            <p> <del style="opacity: 0.5;" class="currency">
-                                                                                                    <?php echo $data['Currency'] . " " . $data['MRP']; ?>
-                                                                                                </del><span class="badge bg-warning text-light mt-1" style="float: right !important;"><?php echo $additionalinfo['FieldValue'] . "%"; ?></span></p>
+                                                                            <div class="product-home">
+                                                                                <div class="home-product">
+                                                            
+                                                                    <?php foreach ($shop_up as $data) { ?>
+                                                                        <div class="product-box height_box col-sm-4" data-aos="fade-up" style="height: 286px;">
+                                                                            <div class="product-img" style="">
+                                                                                <a href="<?php echo base_url('product/' . $data['PostId'].'#postid'.$data['PostId']); ?>">
+                                                                        
+                                                                            <img src="<?php print_r($data['images'][0]['MediaThumbPath']); ?>" alt="" class="img-fluid" style="height:275px;width: 360px; object-fit: cover;">
+                                                                        
+                                                                            </a>
+                                                                                </div>
+                                                                                <div class="rating">
+                                                                                    <div class="ratng-block rating-block-shop-bottom-left">
+                                                                                        <?php if ($data['Rating'] > 0) : ?>
+                                                                                            <?php for ($i = 1; $i <= 5; $i++) : ?>
+                                                                                                <?php if ($i <= $data['Rating']) : ?>
+                                                                                                    <span>
+                                                                                                        <span class="fa fa-star checked pr-1"></span>
+                                                                                                    </span>
+                                                                                                <?php else : ?>
+                                                                                                    <span>
+                                                                                                        <span class="fa fa-star pr-1"></span>
+                                                                                                    </span>
+                                                                                                <?php endif; ?>
+                                                                                            <?php endfor; ?>
                                                                                         <?php endif; ?>
-                                                                                    <?php endforeach; ?>
-                                                                                    <div>
-                                                                                    
-                                                                                    <div class="currency">
-                                                                                        <?php echo $data['Currency'] . " " . $data['SellPrice']; ?>
                                                                                     </div>
-                                                                                    <div class="post_title">
-                                                                                        <p><?php echo mb_strimwidth($data['Title'], 0, 19, "..."); ?></p>
+                                                                                    <div class="km-block km-block-shop-last mx-0" style="position: absolute; bottom: 86px;right: 5px;">
+                                                                                        <span>
+                                                                                            <?php echo $data['Distance']; ?>
+                                                                                        </span>
                                                                                     </div>
-                                                                                    <?php if ($data['MRP'] > $data['SellPrice']) : ?>
-                                                                                        <p><small> <?php echo mb_strimwidth($data['ShortDescription'], 0, 10, "..."); ?></small></p>
-                                                                                    <?php else : ?>
-                                                                                        <p><small> <?php echo mb_strimwidth($data['ShortDescription'], 0, 10, "..."); ?></small></p>
+                                                                                </div>
+                                                                                <?php foreach ($data['additionalinfo'] as $additionalinfo) : ?>
+                                                                                    <?php if ($additionalinfo['FieldName'] == 'product_offer') : ?>
+                                                                                        <p class="currency_details"> <del style="opacity: 0.5;" class="currency">
+                                                                                                <?php echo $data['Currency'] . " " . $data['MRP']; ?>
+                                                                                            </del><span class="badge bg-warning text-light mt-1" style="float: right !important;"><?php echo $additionalinfo['FieldValue'] . "%"; ?></span></p>
                                                                                     <?php endif; ?>
-                                                                                    </div>
+                                                                                <?php endforeach; ?>
+                                                                                <div class="details_product">
                                                                                 
+                                                                                <div class="currency">
+                                                                                    <?php echo $data['Currency'] . " " . $data['SellPrice']; ?>
+                                                                                </div>
+                                                                                <div class="post_title">
+                                                                                    <p><?php echo mb_strimwidth($data['Title'], 0, 19, "..."); ?></p>
+                                                                                </div>
+                                                                                <?php if ($data['MRP'] > $data['SellPrice']) : ?>
+                                                                                    <p><small> <?php echo mb_strimwidth($data['ShortDescription'], 0, 10, "..."); ?></small></p>
+                                                                                <?php else : ?>
+                                                                                    <p><small> <?php echo mb_strimwidth($data['ShortDescription'], 0, 10, "..."); ?></small></p>
+                                                                                <?php endif; ?>
+                                                                                </div>
                                                                             
+                                                                        
+                                                                        </div>
+                                                                    <?php } ?>
+                                                                                
+                                                                                </div>
                                                                             </div>
-                                                                        <?php endforeach; ?>
-                                                                    
+                                                                        </div>
+                                        
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </section>
                                             </div>
-                                            <?php endif; ?>
+                                            <?php } else{ ?>                        
+                                                    <p class="no_posts" style="text-align:center"><img src="<?=$assets?>images/empty-box.png" alt="No Post" style="height: 200px;padding: 10px;"><br>No Posts</p>
+                                                <?php } ?>
+                                        </div>
+                                            
                                 </div>
                             </div>
                         </div>
@@ -614,24 +651,26 @@ $('.qr_code').qrcode({
   height: 100
 });
 $("#discover_filter").click(function(){
-    $('#shop_up').slideDown("slow", function() {});
+    // $('#shop_up').slideDown("slow", function() {});
     $('#shopup_filter').css('display' , 'contents');
     $('#discover_filter').css('display' , 'none');
-    $('#discover').slideUp("slow", function() {});
+    // $('#discover').slideUp("slow", function() {});
     $('.cate-silders').css('display' , 'block');
     $('#playlist').css('display' , 'none');
 });
 $("#shopup_filter").click(function(){
-    $('#shop_up').slideUp("slow", function() {});
+    // $('#shop_up').slideUp("slow", function() {});
     // $('.product-home').slideUp("slow" , function(){});
     $('#shopup_filter').css('display' , 'none');
     $('#discover_filter').css('display' , 'contents');
-    $('#discover').slideDown("slow", function() {});
+    // $('#discover').slideDown("slow", function() {});
     $('.cate-silders').css('display' , 'none');
     $('#playlist').css('display' , 'block');
 
 
 });
+
+var page = 'store';
     $('#posts_from').change(function(){
         var type = $('#posts_from').val();
         products(type , 'highlight');
@@ -693,18 +732,22 @@ $("#shopup_filter").click(function(){
             });
             };
             var userNavbar = '';
-            catsbyUser= function (subcat_id='',parent_id=''){
-                if(parent_id == ''){
-                    // localStorage.removeItem('MainCategoryId');
-                    localStorage.setItem('MainCategoryId', subcat_id);
-                    parent_id = localStorage.getItem('MainCategoryId');
-                }
-                loadUserProducts(subcat_id,parent_id);
+            catsbyUser= function (subcat_id = '', parent_id = '', isSpecial = '', page_name = ''){
+                localStorage.setItem('SubCategoryId', subcat_id);
+
+                    if (parent_id == '') {
+                        localStorage.setItem('MainCategoryId', subcat_id);
+                        localStorage.setItem('MainCategoryId', subcat_id);
+                        parent_id = localStorage.getItem('MainCategoryId');
+                    }
+                loadUserProducts(subcat_id,parent_id,isSpecial, page_name );
                 $.ajax({
                 url:'<?php echo base_url('main/getCategories'); ?>/'+parent_id+'/'+subcat_id,
                 type: 'GET',
                 dataType:'json',
                 data:{
+                    isSpecial: isSpecial,
+                    page_name: page_name,
                    nav:userNavbar,
                 },
                 success:function(data){
@@ -715,7 +758,7 @@ $("#shopup_filter").click(function(){
                         for(var i =0;i<data.subcats.length;i++){
                             view += `
                                 <li class="nav-item">
-                                <a class="nav-link" onclick="catsbyUser(`+data.subcats[i].Id+`,`+parent_id+`)" data-id="`+data.subcats[i].Id+`" id="motord-tab" data-toggle="tab" href="#motord" role="tab" aria-controls="motord" aria-selected="true" style="width:90px; height:120px">
+                                <a class="nav-link" onclick="catsbyUser('` + data.subcats[i].Id + `','` + parent_id + `', '` + data.subcats[i].IsSpecialCat + `' , 'store')" data-id="`+data.subcats[i].Id+`" id="motord-tab" data-toggle="tab" href="#motord" role="tab" aria-controls="motord" aria-selected="true" style="width:90px; height:120px">
                                         <img src="`+data.subcats[i].CategoryImage+`" alt="icomn" style="height:55px; width:55px; object-fit: cover; border-radius: 50%;">
                                             <p> `+data.subcats[i].Name+`</p>
                                     </a>
@@ -732,9 +775,9 @@ $("#shopup_filter").click(function(){
 
 
             
-            loadUserProducts = function (catid , p_id = null){
+            loadUserProducts = function (catid ='' , p_id = '', isSpecial = '', page_name = ''){
                 $('.loader_overlay').css('display', 'block');
-                $('#shop_up').css("display",'block');
+                // $('#shop_up').css("display",'block');
                     // closeNav();
                     $.ajax({
                     url:'<?php echo base_url('user/getProductsbyUserCtaegory'); ?>'+'/'+catid+'/'+p_id,
@@ -742,7 +785,9 @@ $("#shopup_filter").click(function(){
                     dataType:'json',
                     data:{
                         nav:navbar,
-                        page_name : 'store',
+                        sortings: sortings,
+                        isSpecial: isSpecial,
+                        page_name: page_name,
                         user_id : <?=$user_details->Id?>,
                     },
                     success:function(data){
@@ -772,16 +817,26 @@ $("#shopup_filter").click(function(){
                         if(data.datas != null){
                         view = ``;
                             for(var i =0;i<data.datas.length;i++){
-                                
+                                var display = '';
+                                var heightfordiv = '';
+                                var km_last = '';
+                                if (data.datas[i].PostType == 'postup' || page_name == 'discover') {
+                                    display = "style='display:none'";
+                                    km_last = '';
+                                } else {
+                                    heightfordiv = "style='height: 286px !important'";
+                                    km_last = 'style="position: absolute; bottom: 87px;right: 2px;"';
+                                }
                                 view += `
                                 <div class="product-box col-sm-4" data-aos="fade-up">
-                                    <div class="product-img" style="height: 286px;">
+                                    <div class="product-img" ` + heightfordiv + `>
                                         <a href="<?= base_url('product'); ?>/`+data.datas[i].PostId+`#postid`+data.datas[i].PostId+`">`;
                                        
                                             view+=`<img src="`+data.datas[i].images[0].MediaThumbPath+`" alt="" class="img-fluid" style="width: 360px;height:198px; object-fit: cover;">
                                         `; 
-                                        view+=`</a><div class="rating">
-                                            <div class="ratng-block bottom-left">
+                                        view+=`</a>
+                                        <div class="rating">
+                                            <div class="ratng-block bottom-left" ` + display + `>
                                                     `;
                                                     if (data.datas[i].Rating > 0) {
                                                        for (p = 1; p <= 5; p++) {
@@ -798,7 +853,7 @@ $("#shopup_filter").click(function(){
                                                             }
                                                         }
                                             view+=`</div>
-                                            <div class="km-block last" style="position: absolute; bottom: 87px;right: 2px;">
+                                            <div class="km-block last" ` + km_last + `>
                                                 <span>
                                                     `+data.datas[i].Distance+`
                                                 </span>
@@ -833,14 +888,19 @@ $("#shopup_filter").click(function(){
                                     }
                                 $(".home-product").empty();
                                 $(".home-product").html(view);
-                                $("#discover").css('display' , 'none');
+                                $(".profileproducts").css('display', 'block');
+                                $(".home-product").css('margin-top', '0px');
                                 } else{
                                 $(".home-product").empty();
+                                // $(".products").css('display', 'none');
+                                // $(".hash_tags").css('display', 'none');
+                                localStorage.setItem('SubCategoryId', '');
+                                localStorage.setItem('MainCategoryId', '');
                                 $(".home-product").html('No Post Found');
-                                $("#discover").css('display' , 'none');
+                                $(".home-product").css('margin-top', '19px');
 
                                 }
-                                $('.filters_title').css('display' , 'none');
+                                // $('.filters_title').css('display' , 'none');
                                 $('.loader_overlay').css('display', 'none');
                     }
                    
@@ -853,7 +913,7 @@ $("#shopup_filter").click(function(){
                     navbar = $(this).data("type");
                     $('.navbar_filter_profile').removeClass("active");
                     $(this).addClass("active");
-                    catsbyUser(localStorage.getItem('MainCategoryId'));
+                    catsbyUser(localStorage.getItem('SubCategoryId'), localStorage.getItem('MainCategoryId'), '', page);
             });
 </script>
 <!-- <option value="`+data.datas[i].PostId+`">`+data.datas[i].Title+`</option> <img src="`+data.datas[i].images[0].MediaThumbPath+`"

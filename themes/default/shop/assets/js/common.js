@@ -233,10 +233,13 @@ loadProducts = function(catid = '', p_id = '', isSpecial = '', page_name = '', h
                 for (var p = 0; p < data.datas.length; p++) {
                     var display = '';
                     var heightfordiv = '';
+                    var km_last = '';
                     if (data.datas[p].PostType == 'postup' || page_name == 'discover') {
                         display = "style='display:none'";
+                        km_last = '';
                     } else {
                         heightfordiv = "style='height: 286px !important'";
+                        km_last = 'style="position: absolute; bottom: 87px;right: 2px;"';
                     }
                     view += `
                               <div class="product-box col-sm-4" data-aos="fade-up">
@@ -244,11 +247,11 @@ loadProducts = function(catid = '', p_id = '', isSpecial = '', page_name = '', h
                                       <a href="` + base_url + `product/` + data.datas[p].PostId + `#postid` + data.datas[p].PostId + `">`;
 
                     view += `<img src="` + data.datas[p].images[0].MediaThumbPath + `" alt="" class="img-fluid" style="width: 360px;height:198px; object-fit: cover;">
-                                      `;
+                                                            `;
                     view += `</a>
-                    <div ` + display + `>
-                    <div class="rating">
-                                          <div class="ratng-block bottom-left">
+                                        <div>
+                                          <div class="rating">
+                                             <div class="ratng-block bottom-left" ` + display + `>
                                                   `;
                     if (data.datas[p].Rating > 0) {
                         for (i = 1; i <= 5; i++) {
@@ -265,7 +268,7 @@ loadProducts = function(catid = '', p_id = '', isSpecial = '', page_name = '', h
                         }
                     }
                     view += `</div>
-                                          <div class="km-block last mobile_last" style="position: absolute; bottom: 87px;right: 2px;">
+                                          <div class="km-block last mobile_last" ` + km_last + `>
                                               <span>
                                                   ` + data.datas[p].Distance + `
                                               </span>
@@ -803,6 +806,7 @@ if (wdith < 575) {
     $('.video_css').css('height', '150');
     $('.cats_js_data').removeAttr('data-aos');
     $('.write-up').css('max-width', wdith - 10);
+    $('.profile_tab_content').css('max-width', wdith - 10);
 }
 setTimeout(function() {
     $('div.spanner').removeClass('show');
@@ -1044,41 +1048,7 @@ $(document).ready(function() {
     $('.loader_overlay').css('display', 'none');
 });
 
-$("#discover_filter").click(function() {
-    // $('#shop_up').slideDown("slow", function() {});
-    $('#shopup_filter').css('display', 'contents');
-    $('#discover_filter').css('display', 'none');
-    $('#discoverSorting').css('display', 'none');
-    $('#storeSorting').css('display', 'contents');
-    // $('#discover').slideUp("slow", function() {});
-    $('.cats_js').slideDown("slow", function() {});
-    $('.hash_tags').slideUp("slow", function() {});
-    $('#pills-postup-tab').css('display', 'none');
-    $('.navbar_type').removeClass("active");
-    $('.btn_shop_post a').css('background-color', '#1492e6');
-    $('.btn_shop_post a').html('SHOP UP');
 
-});
-$("#shopup_filter").click(function() {
-    // $('#shop_up').slideUp("slow", function() {});
-    $('#storeSorting').css('display', 'block');
-    // $('.product-home').slideUp("slow" , function(){});
-    $('#shopup_filter').css('display', 'none');
-    $('#discover_filter').css('display', 'contents');
-    // $('#discover').slideDown("slow", function() {});
-    $('#discoverSorting').css('display', 'contents');
-    $('#storeSorting').css('display', 'none');
-
-    $('.hash_tags').slideDown("slow", function() {});
-    $('.cats_js').slideUp("slow", function() {});
-    $('#pills-postup-tab').css('display', 'block');
-    $('.navbar_type').removeClass("active");
-    $('.btn_shop_post a').css('background-color', '#C6C6C6');
-    $('.btn_shop_post a').html('POST UP');
-
-
-
-});
 
 $('#UtagUpCat').change(function() {
 

@@ -228,7 +228,7 @@ header#home {
 }
 
 .header-top {
-    width: 1024px;
+    width: 1030px;
     float: left;
     background: #fafafa;
     /* position: fixed; */
@@ -5952,7 +5952,7 @@ span#custom-text {
 }
 
 .pro-name-left .user-name img {
-    width: 100px;
+    width: 50px;
     /* opacity: 0.5; */
     position: absolute;
     right: 0;
@@ -8236,7 +8236,7 @@ i#locator-button {
     .pro-img-right {
         width: 100%;
         float: left;
-        max-width: 100%;
+        /* max-width: 100%; */
         margin-top: 30px;
     }
     .pro-img {
@@ -8244,7 +8244,7 @@ i#locator-button {
         float: left;
         max-width: 30%;
         width: 100%;
-        margin: auto;
+        /* margin: auto; */
         text-align: center;
         float: unset;
     }
