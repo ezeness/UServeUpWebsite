@@ -606,7 +606,6 @@ class User extends MY_Shop_Controller
                
             }
         $this->data['PostId'] = '';
-        $this->data['page_name'] = '';
         $userURL = 'user/user_details/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&posttype=shopup%2Cbookup%2Ccallup&categories=&userId='.$id.'&includechainproduct=1&showpage=discover&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
         $getuserResponce2 = $this->curlGetRequest($userURL);
         $user_json_decoded_value = json_decode($getuserResponce2);
@@ -620,7 +619,7 @@ class User extends MY_Shop_Controller
         foreach ($navBar as $key => $value) {
             $this->data['navbar'][$key] = json_decode(json_encode($value), true);
         }
-
+        
         ///////////////////////Shop Up Products//////////////////////////
         $storeURL = 'user/user_details/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&posttype=shopup%2Cbookup%2Ccallup&categories=&userId=238&includechainproduct=1&showpage=store&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
         $getstoreResponce2 = $this->curlGetRequest($storeURL);
@@ -683,7 +682,7 @@ class User extends MY_Shop_Controller
         //     $array['catagories'][$key] = json_decode(json_encode($value), true);
         // }
         $this->data['filter'] ='';
-        $this->data['page_title'] ='Product Details';
+        $this->data['page_title'] ='Profile';
         $this->page_construct('pages/profile', $this->data);
     }
 
@@ -937,6 +936,68 @@ class User extends MY_Shop_Controller
             return json_encode( $result);
         }
 
+    }
+
+    public function user_home($id = '')
+    {
+        $postTypes =  $this->input->get("nav");
+        $productURL ='product?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=&page=1&search=&categories=&redius=&store=&post_type='.$postTypes.'&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=home&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=&similarpostId=&packageId=&bannertype=discover';
+       
+       /////////////////API CALLING ///////////
+        $product_response = $this->curlGetRequest($productURL);
+        $product_json_decoded_value = json_decode($product_response);
+        $products = $product_json_decoded_value->Products;
+        $navBar = $product_json_decoded_value->PostTypes;
+        foreach ($navBar as $key => $value) {
+            $this->data['navbar'][$key] = json_decode(json_encode($value), true);
+        }
+        $userURL = 'user/user_details/'.$id.'?latitude='.$this->latitude.'&longitude='.$this->longitude.'&posttype=shopup%2Cbookup%2Ccallup&categories=&userId='.$id.'&includechainproduct=1&showpage=discover&hasLocationSwitch=1&PlayListId=&packageId=&utagcategory='.$this->utagUpCCategory->Id.'&filter=';
+        $getuserResponce2 = $this->curlGetRequest($userURL);
+        $user_json_decoded_value = json_decode($getuserResponce2);
+        $products = $user_json_decoded_value->Products;
+        $navBar = $user_json_decoded_value->PostTypes;
+        foreach ($products as $key => $value) {
+            $this->data['datas'][$key] = json_decode(json_encode($value->Details), true);
+        }
+        $this->data['user_details'] = $user_json_decoded_value;
+        //////////////////////////Navbar/////////////////////////////////////
+        foreach ($navBar as $key => $value) {
+            $this->data['navbar'][$key] = json_decode(json_encode($value), true);
+        }
+
+        $highlightsURL = 'highlight/'.$id.'?limit=10&page=1&type=';
+        $gethighlightsResponce2 = $this->curlGetRequest($highlightsURL);
+        $highlights_json_decoded_value = json_decode($gethighlightsResponce2);
+        $highlights = $highlights_json_decoded_value->Highlight;
+        if($highlights){
+        foreach ($highlights as $key => $value) {
+            $this->data['highlights'][$key] = json_decode(json_encode($value), true);
+            }
+        }
+        ////////////////////////Stories//////////////////////////////
+        $storiesURL = 'product/productstory?latitude='.$this->latitude.'&longitude='.$this->longitude.'&limit=18&page=1&search=&categories=&redius=&store=&post_type=&hashforyou=0&utagcategory='.$this->utagUpCCategory->Id.'&filter_type=&showpage=home&IsBanner=0&userId='.$id.'&includechainproduct=0&hasLocationSwitch=1&hashTagId=IsStory=1';
+        $getstoriesResponce = $this->curlGetRequest($storiesURL);
+        $stories_json_decoded_value = json_decode($getstoriesResponce);
+        $stories = $stories_json_decoded_value->Story;
+        $mystories = $stories_json_decoded_value->MyStory;
+        if($stories){
+            foreach ($stories as $key => $value) {
+                $this->data['stories'][$key] = json_decode(json_encode($value), true);
+            }
+         }else{
+            $this->data['stories'] = array();
+         }
+         if($mystories){
+            foreach ($mystories->Products as $key => $value) {
+                $this->data['mystories'][$key] = json_decode(json_encode($value->Details), true);
+            }
+        }else{
+            $this->data['mystories'] = array();
+
+        }
+        $this->data['page_title'] = 'User Home';
+        $this->data['filter'] = '';
+        $this->page_construct('pages/user_home', $this->data);
     }
 
 }

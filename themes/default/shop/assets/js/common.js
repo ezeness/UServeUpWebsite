@@ -660,6 +660,12 @@ $(".navbar_type").click(function() {
     } else {
         cats(localStorage.getItem('SubCategoryId'), localStorage.getItem('MainCategoryId'), '', page);
     }
+
+
+    $('#shopup_filter').css('display', 'contents');
+    $('#discover_filter').css('display', 'none');
+    $('#discoverSorting').css('display', 'none');
+    $('#storeSorting').css('display', 'contents');
 });
 
 
@@ -808,6 +814,8 @@ if (wdith < 575) {
     $('.write-up').css('max-width', wdith - 10);
     $('.profile_tab_content').css('max-width', wdith - 10);
 }
+
+
 setTimeout(function() {
     $('div.spanner').removeClass('show');
     $('div.overlay').removeClass('show');

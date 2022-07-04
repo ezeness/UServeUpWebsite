@@ -119,8 +119,8 @@ $uri =  $this->uri->segment(1);
                                                 if($loggedIn){
                                                     echo "<img src='".$loggedInUser->UserImage."' style='
                                                    
-                                                    height: 27px;
-                                                    width: 27px;
+                                                    height: 28px;
+                                                    width: 28px;
                                                     margin-top: 5px;
                                                     margin-right: 0px;
                                                     border-radius: 50%;'>";

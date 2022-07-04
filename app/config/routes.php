@@ -63,6 +63,7 @@ $route['addresses']= 'user/addresses';
 $route['defaultAddress/(:any)/(:any)']= 'user/defaultAddress/$1/$2';
 $route['deleteAddress/(:any)']='user/deleteAddress/$1';
 $route['unfollow/(:any)']='user/unfollow/$1';
+$route['user_home/(:any)']='user/user_home/$1';
 $route['privacypolicy'] = 'main/privacypolicy';
 // Page route
 // $route['product/(:any)'] = 'shop/shop/page/$1';

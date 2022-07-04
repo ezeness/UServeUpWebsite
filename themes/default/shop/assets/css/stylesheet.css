@@ -94,7 +94,7 @@ body {
     .header-top-icon ul li:nth-child(3) img {
         /* height: 30px; */
         margin-top: 4px;
-        width: 80px;
+        /* width: 80px; */
     }
     .header-top-icon ul li:nth-child(3) {
         /* width: 80px; */
@@ -112,6 +112,7 @@ body {
     }
     .slick-slider {
         margin-top: -30px !important;
+        margin: 0 auto;
     }
     #settings_tabs {
         right: 0% !important;
@@ -5765,10 +5766,10 @@ span#custom-text {
 }
 
 .user-pro {
-    max-width: 50%;
-    width: 100%;
+    /* max-width: 50%; */
+    /* width: 100%; */
     /* padding-top: 30px; */
-    float: left;
+    /* float: left; */
 }
 
 .user-profile {
@@ -5796,8 +5797,8 @@ span#custom-text {
 
 .user-details-right {
     float: left;
-    width: 100%;
-    max-width: 50%;
+    /* width: 100%;
+    max-width: 50%; */
     background-color: white;
 }
 
@@ -5815,9 +5816,9 @@ span#custom-text {
 }
 
 .pro-img-right {
-    width: 100%;
-    float: left;
-    max-width: 75%;
+    /* width: 100%; */
+    /* float: left; */
+    /* max-width: 75%; */
 }
 
 .user-profile-block {
@@ -5942,6 +5943,7 @@ span#custom-text {
     display: block;
     font-size: 14px;
     border-radius: 3px;
+    margin: 0 auto;
 }
 
 .pro-name-left {
@@ -5951,11 +5953,13 @@ span#custom-text {
     /* background-color: #eaeaea61; */
 }
 
-.pro-name-left .user-name img {
-    width: 50px;
+.pro-name-left .user-name img,
+.profile_icon {
+    height: 20px;
     /* opacity: 0.5; */
-    position: absolute;
-    right: 0;
+    /* position: absolute; */
+    /* right: 0; */
+    filter: opacity(0.5);
 }
 
 label.upload__btn p {
@@ -5975,7 +5979,7 @@ label.upload__btn p:hover {
 
 .pro-name-right {
     padding: 0px 0px;
-    display: flex;
+    display: grid;
 }
 
 .follow-user {
@@ -6011,6 +6015,7 @@ label.upload__btn p:hover {
     display: block;
     font-size: 14px;
     border-radius: 3px;
+    margin: 0 auto;
 }
 
 .site-url {
@@ -6233,7 +6238,7 @@ label.upload__btn p:hover {
 }
 
 .menu-user .header-top-icon ul li:nth-child(3) img {
-    height: 20px;
+    /* height: 20px; */
     margin-top: 4px;
 }
 
@@ -8341,6 +8346,12 @@ i#locator-button {
     .logo_text h4 sub {
         font-size: 19px !important;
     }
+    .pro-name-right {
+        display: flex;
+    }
+    .user-profile-block {
+        padding: 0px !important;
+    }
 }
 
 @media(max-width:480px) {
@@ -8363,7 +8374,7 @@ i#locator-button {
         margin: auto;
     }
     .header-top-icon ul {
-        display: flex;
+        display: block;
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
@@ -8377,7 +8388,7 @@ i#locator-button {
     .menu-pro ul li {
         padding: 10px 2px;
         width: 100%;
-        max-width: 25%;
+        /* max-width: 25%; */
     }
     .menu-pro ul li a {
         padding: 0.5rem 5px;
@@ -9254,7 +9265,7 @@ audio {
 .qr_code {
     text-align: center;
     padding: 10px;
-    margin-left: -80px;
+    margin-top: 10px;
 }
 
 .location_icon {
